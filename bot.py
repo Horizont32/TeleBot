@@ -4,7 +4,7 @@ import time
 
 bot = telebot.TeleBot(config.token)
 
-# telebot.apihelper.proxy = {'https': 'socks5://artbryansk9_3109:UjKjdfxtd2@vpnnl01.fornex.org:993'}
+telebot.apihelper.proxy = {'https': 'socks5://178.62.200.107:1080'}
 
 
 # @bot.message_handler(commands=['start'])
@@ -24,13 +24,20 @@ def send_welcome(message):
     bot.send_message(message.chat.id, message.text)
 
 
+@bot.message_handler(commands=['loans', 'долги'])
+def send_welcome(message):
+    bot.reply_to(message, "Ну что у нас там по долгам?")
+    bot.send_message(message.chat.id, message.text)
+
+
+
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message): # Название функции не играет никакой роли, в принципе
-    bot.send_message(message.chat.id, message.text)
+    bot.send_message(message.chat.id, message.text + ' ну и пососи')
 
 
 bot.polling(none_stop=True)
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True, interval=0)
+    bot.polling(none_stop=True, interval=5)
 
