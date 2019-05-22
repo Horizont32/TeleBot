@@ -35,8 +35,10 @@ def send_welcome(message):
 def begin_body(message):
     names = []
     num = message.text
-    for i in range(int(message.text)):
-        names.append(input('Имя %s участника ' % str(i + 1), ), )
+    for i in range(int(num)):
+        bot.send_message(message.chat.id, 'Имя %s участника ' % str(i + 1))
+        names.append(message.text)
+    bot.send_message(message.chat.id, names)
     return names
 
 
