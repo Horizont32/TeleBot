@@ -1,13 +1,18 @@
-n = input('Количество ',)
-names = []
-for i in range(int(n)):
-    names.append(input('Имя %s участника ' % str(i+1), ),)
-d = {}.fromkeys([name for name in names])
-for item in d:
-    d.update({item: {'внес': input('%s внес ' % item,), 'Разделить на:': input('Делить сумму на ',), 'Сумма долга общая': 0.}})
+def participants(n):
+    names = []
+    for i in range(int(n)):
+        names.append(input('Имя %s участника ' % str(i+1), ),)
+    return names
 
 
-def dolg_calc():
+def make_dict(names):
+    d = {}.fromkeys([name for name in names])
+    for item in d:
+        d.update({item: {'внес': input('%s внес ' % item,), 'Разделить на:': input('Делить сумму на ',), 'Сумма долга общая': 0.}})
+    return d
+
+
+def dolg_calc(names, d):
     for name in names:
         names_dolgi = str(d[name]['Разделить на:']).replace(' ', '').split(',')
         if name not in names_dolgi:
@@ -32,7 +37,8 @@ def dolg_calc():
                         d[user]['Сумма долга общая'] -= d[userd]['Сумма долга %s' % user]
                         d[userd]['Сумма долга общая'] -= d[userd]['Сумма долга %s' % user]
                         d[userd]['Сумма долга %s' % user] = 0.
+    return d
 
 
-dolg_calc()
-print(d)
+# dolg_calc()
+# print(d)

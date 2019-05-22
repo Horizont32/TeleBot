@@ -1,10 +1,11 @@
 import config
 import telebot
+import body
 import time
 
 bot = telebot.TeleBot(config.token)
 
-telebot.apihelper.proxy = {'https': 'socks5://178.62.200.107:1080'}
+telebot.apihelper.proxy = {'https': 'socks5://80.211.3.175:1295', 'http':'socks5h://80.211.3.175:1295'}
 
 
 # @bot.message_handler(commands=['start'])
@@ -26,9 +27,17 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['loans', 'долги'])
 def send_welcome(message):
-    bot.reply_to(message, "Ну что у нас там по долгам?")
+    bot.reply_to(message, "Сколько вас было на пати?")
     bot.send_message(message.chat.id, message.text)
+    bot.register_next_step_handler(message, begin_body)
 
+
+def begin_body(message):
+    names = []
+    num = message.text
+    for i in range(int(message.text)):
+        names.append(input('Имя %s участника ' % str(i + 1), ), )
+    return names
 
 
 @bot.message_handler(content_types=["text"])
