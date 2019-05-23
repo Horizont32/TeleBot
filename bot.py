@@ -5,7 +5,7 @@ import time
 
 bot = telebot.TeleBot(config.token)
 
-telebot.apihelper.proxy = {'https': 'socks5://80.211.3.175:1295', 'http':'socks5h://80.211.3.175:1295'}
+# telebot.apihelper.proxy = {'https': 'socks5://138.68.161.14:1080', 'http':'socks5h://138.68.161.14:1080'}
 
 
 # @bot.message_handler(commands=['start'])
@@ -28,18 +28,43 @@ def send_welcome(message):
 @bot.message_handler(commands=['loans', 'долги'])
 def send_welcome(message):
     bot.reply_to(message, "Сколько вас было на пати?")
-    bot.send_message(message.chat.id, message.text)
     bot.register_next_step_handler(message, begin_body)
 
 
 def begin_body(message):
-    names = []
-    num = message.text
-    for i in range(int(num)):
-        bot.send_message(message.chat.id, 'Имя %s участника ' % str(i + 1))
-        names.append(message.text)
-    bot.send_message(message.chat.id, names)
-    return names
+    users = message.text.split()
+    bot.send_message(message.chat.id, str(users))
+    dict = body.make_dict(users)
+    bot.send_message(message.chat.id, str(dict))
+
+    # global names
+    # names = []
+    # num = message.text
+    # # bot.send_message(message.chat.id, 'Tut bilo %s chelovek' % num)
+    # for i in range(int(num)):
+    #     # bot.get_updates(limit=i)
+    #     bot.send_message(message.chat.id, str(i))
+    # #     # @bot.message_handler(content_types=['text'])
+    # #     # def looping(message):
+    # #     #     bot.send_message(message.chat.id, 'Имя %s участника ' % str(i + 1))
+    #     names.append(message.text)
+    # bot.send_message(message.chat.id, str(names))
+    #     # if message:
+    #     #     continue
+    # bot.send_message(message.chat.id, 'Введите имя первого ')
+    # bot.register_next_step_handler(message, fill_list)
+
+
+def fill_list(message):
+    if message.text == 'stop':
+        return
+    else:
+        bot.send_message(message.chat.id, str(names))
+
+        for i in range(len(names)):
+            bot.send_message(message.chat.id, str(i))
+            names[i] = str(message.text)
+            continue
 
 
 @bot.message_handler(content_types=["text"])
