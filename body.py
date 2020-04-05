@@ -1,3 +1,5 @@
+import telebot
+
 def participants(n):
     names = []
     for i in range(int(n)):
@@ -23,6 +25,7 @@ def dolg_calc(names, d):
                 d[named]['Сумма долга %s' % name] = int(d[name]['внес']) / len(names_dolgi)
             elif named == name:
                 d[named]['Сумма долга %s' % name] = 0.
+    print(d)
     for user in names:
         for userd in str(d[user]['Разделить на:']).replace(' ', '').split(','):
             for itemd in d[userd]['Разделить на:'].replace(' ', '').split(','):
@@ -38,6 +41,15 @@ def dolg_calc(names, d):
                         d[userd]['Сумма долга общая'] -= d[userd]['Сумма долга %s' % user]
                         d[userd]['Сумма долга %s' % user] = 0.
     return d
+
+
+def print_dolg(msg, names, d):
+    for name in d:
+        for komu_dolgen in names:
+            if d[name]['Сумма долга %s' % komu_dolgen] != 0:
+                bot.send_message(msg.chat.id, '%s должен ' %name + '%s' %komu_dolgen + str(d[name]['Сумма долга %s' % komu_dolgen]) + ' рублей')
+
+
 
 
 # dolg_calc()

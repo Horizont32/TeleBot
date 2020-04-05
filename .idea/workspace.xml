@@ -1,63 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="polling+some_fixes">
+    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="working body_start and dict creating">
+      <change afterPath="$PROJECT_DIR$/05-04-2020-17-45_asd.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-17-45_wdw.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-18-45_asdas.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-18-47_asds.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-18-49_asda.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-18-55_sadsa.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-19-21_sad.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-19-22_asda.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-19-24_asd.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-19-59_sad.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-02_sda.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-03_sdasd.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-08_asd.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-14_Влч.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-16_Ф.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-19_Ап.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-33_Лв.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-48_Ьала.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-50_Лвла.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-20-57_Твта.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-00_Тала.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-05_Оаос.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-11_Тстс.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-23_Вп.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-40_Сьчь.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-48_asdf.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-56_sadas.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-21-59_ada.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-00_asdd.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-04_lk.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-11_Овь.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-22_фывф.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-33_Отели.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-35_Отели.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-37_Ьвв.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-39_Ьвья.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-40_Ов.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-42_Ытв.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-54_О.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05-04-2020-22-56_Отмена.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nmarray.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/BotTG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BotTG.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/body.py" beforeDir="false" afterPath="$PROJECT_DIR$/body.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/body.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="4" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="55" selection-start-column="55" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="42" column="23" lean-forward="true" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bot (2).py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="64" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -69,103 +65,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/venv/bot.py" />
-        <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/../python/Ipoteca (3).py" />
-        <option value="$PROJECT_DIR$/body.py" />
-        <option value="$PROJECT_DIR$/bot.py" />
-      </list>
-    </option>
+  <component name="ProjectId" id="1PxWg3Ev8R4WsUQKjPKRYAP96Dv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="583" />
-    <option name="y" value="62" />
-    <option name="width" value="1358" />
-    <option name="height" value="370" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="BotTG" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BotTG" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.bot">
-    <configuration name="Ipoteca (3)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="BotTG" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../python" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../python/Ipoteca (3).py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="body (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="BotTG" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../work/rotating" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../work/rotating/body.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.test">
     <configuration name="body" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BotTG" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -179,6 +94,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/body.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="bot (3)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BotTG" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot (3).py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -208,7 +144,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="nmarray" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BotTG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -216,11 +152,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../work/rotating" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../work/rotating/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nmarray.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="BotTG" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -230,19 +187,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Ipoteca (3)" />
-      <item itemvalue="Python.body (1)" />
       <item itemvalue="Python.body" />
+      <item itemvalue="Python.bot (3)" />
       <item itemvalue="Python.bot" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.nmarray" />
+      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.nmarray" />
         <item itemvalue="Python.bot" />
+        <item itemvalue="Python.bot (3)" />
         <item itemvalue="Python.body" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.body (1)" />
-        <item itemvalue="Python.Ipoteca (3)" />
       </list>
     </recent_temporary>
   </component>
@@ -348,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544616716383</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="working body_start and dict creating">
+      <created>1558617528888</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1558617528888</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -360,31 +324,18 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49673203" visible="true" weight="0.19178082" />
-      <window_info id="Structure" order="1" sideWeight="0.503268" side_tool="true" weight="0.24920969" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.32502708" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32956153" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32956153" />
-      <window_info anchor="bottom" id="Python Console" order="8" weight="0.32956153" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32956153" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052685" side_tool="true" weight="0.32502708" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="3" side_tool="true" weight="0.32995737" />
-    </layout>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -401,63 +352,75 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="kek" />
     <MESSAGE value="echo-bot" />
     <MESSAGE value="echo-bot procfile" />
     <MESSAGE value="Interval of bot polling is 0" />
     <MESSAGE value="defining /start /help commands" />
     <MESSAGE value="polling+some_fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="polling+some_fixes" />
+    <MESSAGE value="working body_start and dict creating" />
+    <option name="LAST_COMMIT_MESSAGE" value="working body_start and dict creating" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../work/rotating/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="33" lean-forward="true" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../work/rotating/body.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python/Ipoteca (3).py" />
-    <entry file="file://$PROJECT_DIR$/bot (2).py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="55" selection-start-column="55" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/body.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="4" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="42" column="23" lean-forward="true" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  <component name="WindowStateProjectService">
+    <state width="1899" height="204" key="GridCell.Tab.0.bottom" timestamp="1586116032814">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="204" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
+    <state width="1899" height="204" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
+    <state width="1899" height="204" key="GridCell.Tab.0.center" timestamp="1586116032814">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="204" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
+    <state width="1899" height="204" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
+    <state width="1899" height="204" key="GridCell.Tab.0.left" timestamp="1586116032814">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="204" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1585826490710" />
+    <state width="1899" height="204" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
+    <state width="1899" height="204" key="GridCell.Tab.0.right" timestamp="1586116032814">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="204" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
+    <state width="1899" height="204" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
+    <state width="1899" height="357" key="GridCell.Tab.1.bottom" timestamp="1586116032806">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="265" key="GridCell.Tab.1.bottom/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
+    <state width="1899" height="357" key="GridCell.Tab.1.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032806" />
+    <state width="1899" height="357" key="GridCell.Tab.1.center" timestamp="1586116032805">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="265" key="GridCell.Tab.1.center/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
+    <state width="1899" height="357" key="GridCell.Tab.1.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
+    <state width="1899" height="357" key="GridCell.Tab.1.left" timestamp="1586116032805">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="265" key="GridCell.Tab.1.left/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
+    <state width="1899" height="357" key="GridCell.Tab.1.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
+    <state width="1899" height="357" key="GridCell.Tab.1.right" timestamp="1586116032805">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1515" height="265" key="GridCell.Tab.1.right/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
+    <state width="1899" height="357" key="GridCell.Tab.1.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
+    <state x="277" y="90" key="SettingsEditor" timestamp="1585563410318">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586117856808">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117856808" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586116167735">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="465" y="271" key="com.intellij.ide.util.TipDialog/0.30.1536.834@0.30.1536.834" timestamp="1585814755639" />
+    <state x="507" y="294" key="com.intellij.ide.util.TipDialog/0.30.1676.913@0.30.1676.913" timestamp="1585657629477" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1586116167735" />
+    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup" timestamp="1586109404855">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="431" y="186" width="672" height="678" key="search.everywhere.popup/0.30.1536.834@0.30.1536.834" timestamp="1585824323718" />
+    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup/0.30.1920.1050@0.30.1920.1050" timestamp="1586109404855" />
   </component>
 </project>
