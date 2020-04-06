@@ -8,8 +8,6 @@ import datetime
 
 bot = telebot.TeleBot(config.token)
 
-row = 0
-col = 0
 i = 0
 checkmate = []
 checkmate_copy = []
@@ -48,9 +46,6 @@ def begin(message):
 
 
 def add_event(message):
-    global workbook, worksheet
-    workbook = xlsxwriter.Workbook(str(datetime.datetime.now().strftime("%d-%m-%Y-%H-%M")) + '_' + message.text +'.xlsx')
-    worksheet = workbook.add_worksheet(message.text)
     msg = bot.send_message(message.chat.id, 'Туса создана, перейдем к добавлению участников. Перечисли'
                                             ' ОБЯЗАТЕЛЬНО через запятую. Например: Вася, Юля, Петя')
     bot.register_next_step_handler(msg, add_participants)
@@ -73,18 +68,18 @@ def add_participants(message):
 
 
 def add_subevent_name(message):
-    global row, checkmate, keyb, can_fin, can_fin_keyb
+    global checkmate, keyb, can_fin, can_fin_keyb
     if finish(message, checkmate, participants):
         return
     elif check_if_cancel(message, checkmate):
         return
     else:
-        worksheet.write(row, col, message.text)
-        row += 1
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        keyb.row('На всех', 'В долях', 'Отмена')
+        keyb.row('На всех', 'В долях', 'На суммы')
+        keyb.row('Отмена')
         msg = bot.send_message(message.chat.id, 'Окей, название добавлено. Давай уточним, как делим бабки'
-                                                ': На всех поровну ИЛИ у каждого своя доля?', reply_markup=keyb)
+                                                ': На всех поровну, у каждого своя доля (1/2, 1/4, 1), '
+                                                'или каждый внес определенную СУММУ?', reply_markup=keyb)
         bot.register_next_step_handler(msg, choose_subevent_type)
 
 
@@ -100,7 +95,11 @@ def choose_subevent_type(message):
         msg = bot.send_message(message.chat.id, 'Окей, делим на всех поровну. Кто внес деньги?', reply_markup=usr_keyb)
         bot.register_next_step_handler(msg, fill_subevent_amount)
     elif subevent_type == 'вдолях':
-        msg = bot.send_message(message.chat.id, 'Окей, делим индивидуально. Кто внес деньги?', reply_markup=usr_keyb)
+        msg = bot.send_message(message.chat.id, 'Окей, делим в долях. Кто внес деньги?', reply_markup=usr_keyb)
+        bot.register_next_step_handler(msg, fill_subevent_amount)
+    elif subevent_type == 'насуммы':
+        msg = bot.send_message(message.chat.id, 'Окей, делим индивидуально на конкретные суммы. Кто внес деньги?',
+                               reply_markup=usr_keyb)
         bot.register_next_step_handler(msg, fill_subevent_amount)
     else:
         msg = bot.send_message(message.chat.id, 'Ошибка, неверный тип. Введи заново', reply_markup=keyb)
@@ -108,7 +107,7 @@ def choose_subevent_type(message):
 
 
 def fill_subevent_amount(message):
-    worksheet.write(row, col, message.text) ## Kto vnes babki
+    ## Kto vnes babki
     global indexI, participants
     if check_if_cancel(message, checkmate):
         return
@@ -122,6 +121,8 @@ def fill_subevent_amount(message):
             if subevent_type == 'навсех':
                 bot.register_next_step_handler(msg, fill_subevent_equal_values)
             if subevent_type == 'вдолях':
+                bot.register_next_step_handler(msg, fill_subevent_part_values)
+            if subevent_type == 'насуммы':
                 bot.register_next_step_handler(msg, fill_subevent_bill_values)
 
 
@@ -130,13 +131,8 @@ def fill_subevent_equal_values(message):
     if check_if_cancel(message, checkmate):
         return
     else:
-        if message.text.isdigit():
-            worksheet.write(row, col + 2, float(message.text)) ## skolko vnes babok
-            row += 1
-            for user in participants:
-                worksheet.write(row, col + 1, user)
-                worksheet.write(row, col + 2, float(message.text)/len(participants))
-                row += 1
+        if is_digit(message.text):
+            ## skolko vnes babok
             for kto_dolzen in range(len(checkmate[indexI])):
                 checkmate[indexI][kto_dolzen] = checkmate[indexI][kto_dolzen] + float(message.text)/len(participants)
             print(checkmate)
@@ -150,7 +146,7 @@ def fill_subevent_equal_values(message):
 
 
 def fill_subevent_bill_values(message):
-    global row, col, summa, full_check_amount, checkmate_copy, checkmate
+    global summa, full_check_amount, checkmate_copy, checkmate, i
     # if message.text.lower() == 'отмена':
     #     checkmate = []
     #     summa = 0
@@ -158,30 +154,26 @@ def fill_subevent_bill_values(message):
         return
     else:
         if is_digit(message.text):
-            worksheet.write(row, col + 2, float(message.text)) ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
-            row += 1
-            global i
+            ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
             if i <= len(participants) - 1 and i == 0:
                 full_check_amount = float(message.text)
                 # print(full_check_amount)
                 checkmate_copy = copy.deepcopy(checkmate) ##that worked
                 # print(checkmate_copy)
                 # print('KOPIYA')
-                msg = bot.send_message(message.chat.id, 'Сколько по этому чеку должен %s' % participants[i])
-                worksheet.write(row, col + 1, participants[i])  ## имя на кого деим чек
+                msg = bot.send_message(message.chat.id, 'Сколько по этому чеку должен %s' % participants[i])  ## имя на кого деим чек
                 i += 1
                 bot.register_next_step_handler(msg, fill_subevent_bill_values)
                 # print('OBNULIL')
             elif len(participants) - 1 >= i > 0:
                 summa += float(message.text)
-                checkmate[indexI][i-1] = checkmate[indexI][i-1] + float(message.text)
-                msg = bot.send_message(message.chat.id, 'Сколько по этому чеку должен %s' % participants[i])
-                worksheet.write(row, col + 1, participants[i])  ## имя на кого деим чек
+                checkmate[indexI][i-1] += float(message.text)
+                msg = bot.send_message(message.chat.id, 'Сколько по этому чеку должен %s' % participants[i])  ## имя на кого деим чек
                 bot.register_next_step_handler(msg, fill_subevent_bill_values)
                 i += 1
             else:
                 summa += float(message.text)
-                checkmate[indexI][-1] = checkmate[indexI][-1] + float(message.text)
+                checkmate[indexI][-1] += float(message.text)
                 if summa == full_check_amount:
                     msg = bot.send_message(message.chat.id, 'Отлично! Все данные совпадают, я их запомнил!'
                                                             '\nЕсли хочешь добавить новое событие, просто введи'
@@ -217,14 +209,84 @@ def fill_subevent_bill_values(message):
             bot.register_next_step_handler(msg, fill_subevent_bill_values)
 
 
+def fill_subevent_part_values(message):
+    global summa, full_check_amount, checkmate_copy, checkmate, i
+    # if message.text.lower() == 'отмена':
+    #     checkmate = []
+    #     summa = 0
+    if check_if_cancel(message, checkmate, sump=summa):
+        return
+    else:
+        try:
+            part = nmarray.eval_to_part(message.text)
+        except TypeError:
+            msg = bot.send_message(message.chat.id, 'Ошибка, введи долю заново!')
+            bot.register_next_step_handler(msg, fill_subevent_part_values)
+        except ValueError:
+            if is_digit(message.text) and message.text != '1':
+                ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
+                if i <= len(participants) - 1 and i == 0:
+                    full_check_amount = float(message.text)
+                    # print(full_check_amount)
+                    checkmate_copy = copy.deepcopy(checkmate)  ##that worked
+                    # print(checkmate_copy)
+                    # print('KOPIYA')
+                    msg = bot.send_message(message.chat.id, 'Какую долю по этому чеку должен %s' % participants[
+                        i])  ## имя на кого деим чек
+                    i += 1
+                    bot.register_next_step_handler(msg, fill_subevent_part_values)
+                    # print('OBNULIL')
+            else:
+                msg = bot.send_message(message.chat.id, "АЯЯЙ, это не число! Введи число!")
+                bot.register_next_step_handler(msg, fill_subevent_part_values)
+        else:
+            if len(participants) - 1 >= i > 0:
+                summa += full_check_amount * part
+                checkmate[indexI][i-1] += full_check_amount * part
+                msg = bot.send_message(message.chat.id, 'Какую долю по этому чеку должен %s' % participants[i]) ## имя на кого деим чек
+                bot.register_next_step_handler(msg, fill_subevent_part_values)
+                i += 1
+            else:
+                summa += full_check_amount * part
+                checkmate[indexI][-1] += full_check_amount * part
+                if summa == full_check_amount:
+                    msg = bot.send_message(message.chat.id, 'Отлично! Все данные совпадают, я их запомнил!'
+                                                            '\nЕсли хочешь добавить новое событие, просто введи'
+                                                            ' его название. '
+                                                            'Если ввел все данные и хочешь рассчитать долги, выбери'
+                                                            ' КОНЕЦ.'
+                                                            ' Если где-то ошибся (или не хочешь дальше считать),'
+                                                            ' выбери ОТМЕНА', reply_markup=cancel_fin_keyb)
+                    bot.register_next_step_handler(msg, add_subevent_name)
+                    summa = 0
+                    i = 0
+                else:
+                    bot.send_message(message.chat.id, 'Сумма денег, потраченной каждым из вас не равна общей сумме!'
+                                                            ' Введи данные по участникам снова!',
+                                     reply_markup=cancel_fin_keyb)
+                    msg = bot.send_message(message.chat.id, ' Сколько %s внес?' % participants[indexI])
+                    i = 0
+                    # print('COPY')
+                    # print(checkmate_copy)
+                    # print('Orig')
+                    # print(checkmate)
+                    checkmate = checkmate_copy ##That worked
+                    # checkmate.clear()
+                    # [checkmate.append(item.copy()) for item in checkmate_copy]
+                    # checkmate_copy.clear()
+                    # [checkmate_copy.append(item) for item in checkmate]
+                    summa = 0
+                    bot.register_next_step_handler(msg, fill_subevent_part_values)
+                print(checkmate)
+                # i = 0
+
+
 def check_if_cancel(message, array, sump=0):
     global i, row, col
     if message.text.lower().replace(' ', '') == 'отмена':
         array.clear()
         sump = 0
         i = 0
-        row, col = 0, 0
-        workbook.close()
         begin(message)
         return True
     else:
@@ -245,11 +307,11 @@ def finish(message, array, users):
             inline_repost.add(types.InlineKeyboardButton(text='Переслать результат в чатик', switch_inline_query=final_message_text))
             bot.send_message(message.chat.id, text=final_message_text, reply_markup=inline_repost)
         except:
-            bot.send_message(message.chat.id, 'что-то пошло не так')
-        array.clear()
-        workbook.close()
-        begin(message)
-        return True
+            bot.send_message(message.chat.id, 'Как здорово вы потусили, никто никому ничего не должен!')
+        finally:
+            array.clear()
+            begin(message)
+            return True
     else:
         return False
 
@@ -263,6 +325,7 @@ def is_digit(string):
             return True
         except ValueError:
             return False
+
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=2)
