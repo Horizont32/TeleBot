@@ -1,54 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="working body_start and dict creating">
-      <change afterPath="$PROJECT_DIR$/05-04-2020-17-45_asd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-17-45_wdw.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-18-45_asdas.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-18-47_asds.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-18-49_asda.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-18-55_sadsa.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-19-21_sad.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-19-22_asda.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-19-24_asd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-19-59_sad.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-02_sda.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-03_sdasd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-08_asd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-14_Влч.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-16_Ф.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-19_Ап.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-33_Лв.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-48_Ьала.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-50_Лвла.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-20-57_Твта.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-00_Тала.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-05_Оаос.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-11_Тстс.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-23_Вп.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-40_Сьчь.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-48_asdf.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-56_sadas.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-21-59_ada.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-00_asdd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-04_lk.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-11_Овь.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-22_фывф.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-33_Отели.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-35_Отели.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-37_Ьвв.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-39_Ьвья.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-40_Ов.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-42_Ытв.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-54_О.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05-04-2020-22-56_Отмена.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nmarray.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BotTG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BotTG.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="bot is working">
+      <change afterPath="$PROJECT_DIR$/06-04-2020-15-51_Конец.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/06-04-2020-15-51_Пати на хате.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/06-04-2020-16-16_Ночь на речке.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/body.py" beforeDir="false" afterPath="$PROJECT_DIR$/body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nmarray.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmarray.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558617528888</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="bot is working">
+      <created>1586117875395</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1586117875395</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -360,29 +326,34 @@
     <MESSAGE value="defining /start /help commands" />
     <MESSAGE value="polling+some_fixes" />
     <MESSAGE value="working body_start and dict creating" />
-    <option name="LAST_COMMIT_MESSAGE" value="working body_start and dict creating" />
+    <MESSAGE value="bot is working" />
+    <option name="LAST_COMMIT_MESSAGE" value="bot is working" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="204" key="GridCell.Tab.0.bottom" timestamp="1586116032814">
+    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586117873615">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117873615" />
+    <state width="1899" height="204" key="GridCell.Tab.0.bottom" timestamp="1586213170531">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
-    <state width="1899" height="204" key="GridCell.Tab.0.center" timestamp="1586116032814">
+    <state width="1899" height="204" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170531" />
+    <state width="1899" height="204" key="GridCell.Tab.0.center" timestamp="1586213170530">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
-    <state width="1899" height="204" key="GridCell.Tab.0.left" timestamp="1586116032814">
+    <state width="1899" height="204" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
+    <state width="1899" height="204" key="GridCell.Tab.0.left" timestamp="1586213170530">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1585826490710" />
-    <state width="1899" height="204" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
-    <state width="1899" height="204" key="GridCell.Tab.0.right" timestamp="1586116032814">
+    <state width="1899" height="204" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
+    <state width="1899" height="204" key="GridCell.Tab.0.right" timestamp="1586213170530">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032814" />
+    <state width="1899" height="204" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
     <state width="1899" height="357" key="GridCell.Tab.1.bottom" timestamp="1586116032806">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -407,16 +378,20 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586117856808">
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586117885776">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117856808" />
-    <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586116167735">
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117885776" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586199646715">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="465" y="271" key="com.intellij.ide.util.TipDialog/0.30.1536.834@0.30.1536.834" timestamp="1585814755639" />
     <state x="507" y="294" key="com.intellij.ide.util.TipDialog/0.30.1676.913@0.30.1676.913" timestamp="1585657629477" />
-    <state x="581" y="333" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1586116167735" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1586199646715" />
+    <state x="758" y="234" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586163328991">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="758" y="234" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1586163328991" />
     <state x="539" y="226" width="840" height="854" key="search.everywhere.popup" timestamp="1586109404855">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>

@@ -1,3 +1,16 @@
+def eval_to_part(message):
+    message = message.replace(' ', '')
+    if '/' in message:
+        parts = message.split('/')
+        part = int(parts[0])/int(parts[1])
+        return part
+    elif any(symbol in message for symbol in [',', '.']) or message == '1' or message == '0':
+        msg = message.replace(',', '.')
+        return float(msg)
+    elif message.isdigit():
+        raise ValueError
+    else:
+        raise TypeError
 
 
 def count(array2D):
@@ -161,5 +174,13 @@ def main_task(checkmate):
     # lower_transactions(checkmate, list_dolgov)
 
 
+# try:
+#     dolg = eval_to_part('22')
+#     print(dolg)
+# except:
+#     print('Ошибка')
+
+# kek = eval_to_part('2,2')
+# print(kek)
 # main_task(bb)
 # print(bb)
