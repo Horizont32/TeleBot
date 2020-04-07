@@ -230,6 +230,7 @@ def fill_subevent_part_values(message):
     else:
         try:
             print('try')
+            bot.send_message(message.chat.id, 'try')
             part = nmarray.eval_to_part(message.text)
         except TypeError:
             print('type')
@@ -237,6 +238,7 @@ def fill_subevent_part_values(message):
             bot.register_next_step_handler(msg, fill_subevent_part_values)
         except ValueError:
             print('value')
+            bot.send_message(message.chat.id, 'valueERR')
             if is_digit(message.text.replace(',', '.')) and message.text != '1' and message.text != '0':
                 ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
                 if i <= len(participants) - 1 and i == 0:
@@ -259,7 +261,7 @@ def fill_subevent_part_values(message):
             if i == 0:
                 full_check_amount = part  # KAKUYU SUMMU VNES
                 checkmate_copy = copy.deepcopy(checkmate)  # that worked
-                msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
+                msg = bot.send_message(message.chat.id, 'else0Какую долю (например, 1/2, 1/4) '
                                                         'по этому событию должен %s' % participants[i],
                                        reply_markup=parts_keyb)  ## имя на кого деим чек
                 bot.register_next_step_handler(msg, fill_subevent_part_values)
@@ -267,7 +269,7 @@ def fill_subevent_part_values(message):
             elif len(participants) - 1 >= i > 0:
                 summa += full_check_amount * part
                 checkmate[indexI][i-1] += full_check_amount * part
-                msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
+                msg = bot.send_message(message.chat.id, 'else>0Какую долю (например, 1/2, 1/4) '
                                                         ' по этому событию должен %s' % participants[i],
                                        reply_markup=parts_keyb) ## имя на кого деим чек
                 bot.register_next_step_handler(msg, fill_subevent_part_values)
