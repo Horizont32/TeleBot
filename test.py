@@ -229,11 +229,14 @@ def fill_subevent_part_values(message):
         return
     else:
         try:
+            print('try')
             part = nmarray.eval_to_part(message.text)
         except TypeError:
+            print('type')
             msg = bot.send_message(message.chat.id, 'Ошибка, введи заново!', reply_markup=keyb)
             bot.register_next_step_handler(msg, fill_subevent_part_values)
         except ValueError:
+            print('value')
             if is_digit(message.text.replace(',', '.')) and message.text != '1' and message.text != '0':
                 ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
                 if i <= len(participants) - 1 and i == 0:
@@ -242,7 +245,12 @@ def fill_subevent_part_values(message):
                     msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
                                                             'по этому событию должен %s' % participants[i],
                                            reply_markup=parts_keyb)  ## имя на кого деим чек
+                    bot.register_next_step_handler(msg, fill_subevent_part_values)
                     i += 1
+                else:
+                    msg = bot.send_message(message.chat.id, 'Да не может такого быть, чтобы доля была больше 1 =)'
+                                                            ' Введи нормальную долю, а',
+                                           reply_markup=parts_keyb)  ## имя на кого деим чек
                     bot.register_next_step_handler(msg, fill_subevent_part_values)
             else:
                 msg = bot.send_message(message.chat.id, "АЯЯЙ, это не число! Введи число!", reply_markup=keyb)
@@ -254,8 +262,8 @@ def fill_subevent_part_values(message):
                 msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
                                                         'по этому событию должен %s' % participants[i],
                                        reply_markup=parts_keyb)  ## имя на кого деим чек
-                i += 1
                 bot.register_next_step_handler(msg, fill_subevent_part_values)
+                i += 1
             elif len(participants) - 1 >= i > 0:
                 summa += full_check_amount * part
                 checkmate[indexI][i-1] += full_check_amount * part
