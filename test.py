@@ -208,7 +208,7 @@ def fill_subevent_bill_values(message):
 def fill_subevent_part_values(message):
     global summa, full_check_amount, checkmate_copy, checkmate, i
     but_list = []
-    for num in range(len(participants)):
+    for num in range(len(participants)): ## Just buttons
         if num/len(participants) == 0:
             but_list.append('0')
         elif num/len(participants) == 0.25:
@@ -220,7 +220,6 @@ def fill_subevent_part_values(message):
             but_list.append('1')
         else:
             but_list.append(str(num) + '/%s' % len(participants))
-            # parts_keyb.add(str(num) + '/%s' % len(participants))
     keyb = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     keyb.row('Отмена')
     parts_keyb = types.ReplyKeyboardMarkup(one_time_keyboard=False, resize_keyboard=True, row_width=5)
@@ -232,27 +231,35 @@ def fill_subevent_part_values(message):
         try:
             part = nmarray.eval_to_part(message.text)
         except TypeError:
-            msg = bot.send_message(message.chat.id, 'Ошибка, введи долю заново!', reply_markup=keyb)
+            msg = bot.send_message(message.chat.id, 'Ошибка, введи заново!', reply_markup=keyb)
             bot.register_next_step_handler(msg, fill_subevent_part_values)
         except ValueError:
-            if is_digit(message.text) and message.text != '1':
+            if is_digit(message.text.replace(',', '.')) and message.text != '1' and message.text != '0':
                 ## skolko vnes babok для перовго вызова, потом уже количество денег на каждого
                 if i <= len(participants) - 1 and i == 0:
-                    full_check_amount = float(message.text)
+                    full_check_amount = float(message.text) # KAKUYU SUMMU VNES
                     checkmate_copy = copy.deepcopy(checkmate)  ##that worked
-                    msg = bot.send_message(message.chat.id, 'Какую долю(например, 1/2, 1/4 ) '
-                                                            'по этому событию должен %s' % participants[
-                        i], reply_markup=parts_keyb)  ## имя на кого деим чек
+                    msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
+                                                            'по этому событию должен %s' % participants[i],
+                                           reply_markup=parts_keyb)  ## имя на кого деим чек
                     i += 1
                     bot.register_next_step_handler(msg, fill_subevent_part_values)
             else:
                 msg = bot.send_message(message.chat.id, "АЯЯЙ, это не число! Введи число!", reply_markup=keyb)
                 bot.register_next_step_handler(msg, fill_subevent_part_values)
         else:
-            if len(participants) - 1 >= i > 0:
+            if i == 0:
+                full_check_amount = part  # KAKUYU SUMMU VNES
+                checkmate_copy = copy.deepcopy(checkmate)  # that worked
+                msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
+                                                        'по этому событию должен %s' % participants[i],
+                                       reply_markup=parts_keyb)  ## имя на кого деим чек
+                i += 1
+                bot.register_next_step_handler(msg, fill_subevent_part_values)
+            elif len(participants) - 1 >= i > 0:
                 summa += full_check_amount * part
                 checkmate[indexI][i-1] += full_check_amount * part
-                msg = bot.send_message(message.chat.id, 'Какую долю(например, 1/2, 1/4 ) '
+                msg = bot.send_message(message.chat.id, 'Какую долю (например, 1/2, 1/4) '
                                                         ' по этому событию должен %s' % participants[i],
                                        reply_markup=parts_keyb) ## имя на кого деим чек
                 bot.register_next_step_handler(msg, fill_subevent_part_values)
@@ -260,7 +267,7 @@ def fill_subevent_part_values(message):
             else:
                 summa += full_check_amount * part
                 checkmate[indexI][-1] += full_check_amount * part
-                if round(summa, ndigits=2) == round(full_check_amount):
+                if round(summa, ndigits=2) == round(full_check_amount, ndigits=2):
                     msg = bot.send_message(message.chat.id, 'Отлично! Все данные совпадают, я их запомнил!'
                                                             '\nЕсли хочешь добавить новое событие, просто введи'
                                                             ' его название. '
