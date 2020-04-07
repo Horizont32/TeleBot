@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="bot is working">
-      <change afterPath="$PROJECT_DIR$/06-04-2020-15-51_Конец.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/06-04-2020-15-51_Пати на хате.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/06-04-2020-16-16_Ночь на речке.xlsx" afterDir="false" />
+    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="Добавлены доли, осталось добавить кнопочки при вводе долей">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nmarray.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmarray.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -278,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586117875395</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Добавлены доли, осталось добавить кнопочки при вводе долей">
+      <created>1586213666686</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1586213666686</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -327,75 +332,76 @@
     <MESSAGE value="polling+some_fixes" />
     <MESSAGE value="working body_start and dict creating" />
     <MESSAGE value="bot is working" />
-    <option name="LAST_COMMIT_MESSAGE" value="bot is working" />
+    <MESSAGE value="Добавлены доли, осталось добавить кнопочки при вводе долей" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены доли, осталось добавить кнопочки при вводе долей" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586117873615">
+    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586213665943">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117873615" />
-    <state width="1899" height="204" key="GridCell.Tab.0.bottom" timestamp="1586213170531">
+    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586213665943" />
+    <state width="1877" height="204" key="GridCell.Tab.0.bottom" timestamp="1586282799529">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170531" />
-    <state width="1899" height="204" key="GridCell.Tab.0.center" timestamp="1586213170530">
+    <state width="1877" height="204" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586282799529" />
+    <state width="1877" height="204" key="GridCell.Tab.0.center" timestamp="1586282799529">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
-    <state width="1899" height="204" key="GridCell.Tab.0.left" timestamp="1586213170530">
+    <state width="1877" height="204" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586282799529" />
+    <state width="1877" height="204" key="GridCell.Tab.0.left" timestamp="1586282799529">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1585826490710" />
-    <state width="1899" height="204" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
-    <state width="1899" height="204" key="GridCell.Tab.0.right" timestamp="1586213170530">
+    <state width="1877" height="204" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586282799529" />
+    <state width="1877" height="204" key="GridCell.Tab.0.right" timestamp="1586282799529">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="204" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1585826490711" />
-    <state width="1899" height="204" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586213170530" />
-    <state width="1899" height="357" key="GridCell.Tab.1.bottom" timestamp="1586116032806">
+    <state width="1877" height="204" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586282799529" />
+    <state width="1877" height="357" key="GridCell.Tab.1.bottom" timestamp="1586275574849">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="265" key="GridCell.Tab.1.bottom/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
-    <state width="1899" height="357" key="GridCell.Tab.1.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032806" />
-    <state width="1899" height="357" key="GridCell.Tab.1.center" timestamp="1586116032805">
+    <state width="1877" height="357" key="GridCell.Tab.1.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1586275574849" />
+    <state width="1877" height="357" key="GridCell.Tab.1.center" timestamp="1586275574849">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="265" key="GridCell.Tab.1.center/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
-    <state width="1899" height="357" key="GridCell.Tab.1.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
-    <state width="1899" height="357" key="GridCell.Tab.1.left" timestamp="1586116032805">
+    <state width="1877" height="357" key="GridCell.Tab.1.center/0.30.1920.1050@0.30.1920.1050" timestamp="1586275574849" />
+    <state width="1877" height="357" key="GridCell.Tab.1.left" timestamp="1586275574849">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="265" key="GridCell.Tab.1.left/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
-    <state width="1899" height="357" key="GridCell.Tab.1.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
-    <state width="1899" height="357" key="GridCell.Tab.1.right" timestamp="1586116032805">
+    <state width="1877" height="357" key="GridCell.Tab.1.left/0.30.1920.1050@0.30.1920.1050" timestamp="1586275574849" />
+    <state width="1877" height="357" key="GridCell.Tab.1.right" timestamp="1586275574849">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1515" height="265" key="GridCell.Tab.1.right/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
-    <state width="1899" height="357" key="GridCell.Tab.1.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586116032805" />
+    <state width="1877" height="357" key="GridCell.Tab.1.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586275574849" />
     <state x="277" y="90" key="SettingsEditor" timestamp="1585563410318">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586117885776">
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586213676285">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586117885776" />
-    <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586199646715">
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586213676285" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586271138750">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="465" y="271" key="com.intellij.ide.util.TipDialog/0.30.1536.834@0.30.1536.834" timestamp="1585814755639" />
     <state x="507" y="294" key="com.intellij.ide.util.TipDialog/0.30.1676.913@0.30.1676.913" timestamp="1585657629477" />
-    <state x="581" y="333" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1586199646715" />
+    <state x="581" y="333" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1586271138750" />
     <state x="758" y="234" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586163328991">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="758" y="234" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1586163328991" />
-    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup" timestamp="1586109404855">
+    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup" timestamp="1586276009039">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="431" y="186" width="672" height="678" key="search.everywhere.popup/0.30.1536.834@0.30.1536.834" timestamp="1585824323718" />
-    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup/0.30.1920.1050@0.30.1920.1050" timestamp="1586109404855" />
+    <state x="539" y="226" width="840" height="854" key="search.everywhere.popup/0.30.1920.1050@0.30.1920.1050" timestamp="1586276009039" />
   </component>
 </project>

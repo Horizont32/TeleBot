@@ -174,6 +174,12 @@ def main_task(checkmate):
     # lower_transactions(checkmate, list_dolgov)
 
 
+def check_duplicate(list):
+    for elem in list:
+        if list.count(elem) > 1:
+            return True
+
+
 # try:
 #     dolg = eval_to_part('22')
 #     print(dolg)
