@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="test2">
+    <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="new_req">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586293986759</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="new_req">
+      <created>1586296898079</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1586296898079</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -371,13 +380,14 @@
     <MESSAGE value="Fixed bug with parts2" />
     <MESSAGE value="test" />
     <MESSAGE value="test2" />
-    <option name="LAST_COMMIT_MESSAGE" value="test2" />
+    <MESSAGE value="new_req" />
+    <option name="LAST_COMMIT_MESSAGE" value="new_req" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586293986240">
+    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586296897520">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586293986240" />
+    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586296897520" />
     <state width="1877" height="204" key="GridCell.Tab.0.bottom" timestamp="1586294602898">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -422,10 +432,10 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586293991563">
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586296905145">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586293991563" />
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586296905145" />
     <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586296419896">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
