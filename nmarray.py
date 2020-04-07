@@ -180,6 +180,17 @@ def check_duplicate(list):
             return True
 
 
+def is_digit(string):
+    if string.isdigit():
+        return True
+    else:
+        try:
+            float(string)
+            return True
+        except ValueError:
+            return False
+
+
 # try:
 #     dolg = eval_to_part('22')
 #     print(dolg)
