@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="new_req">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +26,6 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -325,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586296898079</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="new_req">
+      <created>1586297636959</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1586297636959</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -342,9 +346,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -363,6 +365,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -384,10 +387,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="new_req" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586296897520">
+    <state x="622" y="149" key="CommitChangelistDialog2" timestamp="1586297636316">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586296897520" />
+    <state x="622" y="149" key="CommitChangelistDialog2/0.30.1920.1050@0.30.1920.1050" timestamp="1586297636316" />
     <state width="1877" height="204" key="GridCell.Tab.0.bottom" timestamp="1586294602898">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -428,14 +431,15 @@
     </state>
     <state width="1515" height="265" key="GridCell.Tab.1.right/0.30.1536.834@0.30.1536.834" timestamp="1585762346468" />
     <state width="1877" height="357" key="GridCell.Tab.1.right/0.30.1920.1050@0.30.1920.1050" timestamp="1586275574849" />
-    <state x="277" y="90" key="SettingsEditor" timestamp="1585563410318">
-      <screen x="0" y="30" width="1536" height="834" />
-    </state>
-    <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586296905145">
+    <state x="346" y="106" key="SettingsEditor" timestamp="1591041681878">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586296905145" />
+    <state x="346" y="106" key="SettingsEditor/-1920.30.1920.1050/0.30.1920.1050@0.30.1920.1050" timestamp="1591041681878" />
+    <state x="277" y="90" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1585563410318" />
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2" timestamp="1586297642758">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="552" y="288" key="Vcs.Push.Dialog.v2/0.30.1920.1050@0.30.1920.1050" timestamp="1586297642758" />
     <state x="581" y="333" key="com.intellij.ide.util.TipDialog" timestamp="1586296419896">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>

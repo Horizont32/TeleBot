@@ -5,7 +5,7 @@ import copy
 import nmarray
 from collections import Counter
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot(config.token, threaded=True)
 
 i = 0
 checkmate = []
