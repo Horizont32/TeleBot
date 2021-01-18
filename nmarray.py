@@ -191,6 +191,10 @@ def is_digit(string):
             return False
 
 
+def check_summ(parts):
+    return sum(parts) == 1
+
+
 # try:
 #     dolg = eval_to_part('22')
 #     print(dolg)

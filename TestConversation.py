@@ -1,7 +1,6 @@
 import config
 import telebot
 from telebot import types
-import copy
 import nmarray
 
 bot = telebot.TeleBot(config.token, threaded=True)
@@ -14,16 +13,22 @@ def get_user_step(uid):
         return usersData[uid]['step']
     else:
         usersData[uid] = {'step': 0}
+        usersData[uid]['tree'] = funcs
         print("New user detected, who hasn't used \"/add_event\" yet")
         return 0
 
 
-@bot.message_handler(func=lambda message: message.text == 'отмена')
+@bot.message_handler(func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
 def cancel_conversation(m):
     cid = m.chat.id
-    usersData[cid]['step'] = 0
-    bot.send_message(cid, 'Полученные данные сброшены! Чтобы начать'
-                          ' заново, введите /add_event')
+    try:
+        del usersData[cid]
+        print(usersData)
+        bot.send_message(cid, 'Полученные данные сброшены! Чтобы начать'
+                              ' заново, введите /add_event')
+    except:
+        bot.send_message(cid, 'Мне нечего удалять, данные отсутствуют! Чтобы начать, введите'
+                              ' /add_event')
 
 
 @bot.message_handler(commands=['help'])
@@ -38,26 +43,27 @@ def add_event(m):
     uid = m.chat.id
     get_user_step(uid)
     usersData[uid]['step'] = 1
-    bot.send_message(m.chat.id, 'Событие создано! Давай добавим участников! Перечисли'
+    bot.send_message(uid, 'Событие создано! Давай добавим участников! Перечисли'
                                 ' ОБЯЗАТЕЛЬНО через запятую, регистр при этом безразличен.'
                                 ' Например: Вася, Юля, Петя')
 
 
 @bot.message_handler(content_types=['text'])
 def main_handler(m):
-    print(m.text)
+    uid = m.chat.id
     print('MainHandler_Called')
-    print(funcs[get_user_step(m.chat.id)].__name__)
+    print('Text :', m.text)
+    step = get_user_step(uid)
+    print(usersData[uid]['tree'][step].__name__)
+    usersData[uid]['tree'][step](m)
     print(usersData)
-    funcs[get_user_step(m.chat.id)](m)
 
 
 def add_participants(m):
     cid = m.chat.id
     participants = tuple(m.text.lower().replace(' ', '').replace('\n', ',').replace(',,',',').split(','))
-    print(participants)
     if nmarray.check_duplicate(participants):
-        bot.send_message(m.chat.id, 'Друг, у вас в тусовке есть тезки, это круто, но ты, боюсь, '
+        bot.send_message(cid, 'Друг, у вас в тусовке есть тезки, это круто, но ты, боюсь, '
                                     'запутаешься, когда я выведу результат. Введи уникальные имена')
     else:
         mes = ''
@@ -65,22 +71,25 @@ def add_participants(m):
             mes += '\n' + str(count + 1) + '. ' + str(elem)
         bot.send_message(cid, 'А вот и все наши участники! ' '\n' + mes)
         usersData[cid]['participants'] = participants
-        usersData[cid]['current_data'] = [[0 for rows in range(len(participants))]
-                                          for cols in range(len(participants))]
+        usersData[cid]['current_data'] = [[0 for _ in range(len(participants))]
+                                          for _ in range(len(participants))]
         bot.send_message(cid, 'Пришло время вносить данные по затратам! Введи имя первой закупки, например,'
                               ' "АЛКОГОЛЬ В Ашане".')
+        # Creating table for events here, not in add_subevent, because when trying to create new event
+        # it is going to make that field default
+        usersData[cid]['events'] = {}
         usersData[cid]['step'] = 2
 
 
 def add_subevent(m):
     cid = m.chat.id
-    usersData[cid]['events'] = {m.text: None}
+    usersData[cid]['events'][m.text] = None
     usersData[cid]['current_event'] = m.text
     # Creating a keyboard
     keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     keyb.row('На всех', 'В долях', 'На суммы')
     keyb.row('Отмена')
-    bot.send_message(m.chat.id, 'Окей, название добавлено. Давай уточним, как делим бабки'
+    bot.send_message(cid, 'Окей, название добавлено. Давай уточним, как делим бабки'
                                 ': На всех поровну, у каждого своя доля (например, половина (1/2), '
                                 'четверть (1/4), 1 или 0,2), '
                                 'или каждый внес определенную СУММУ?', reply_markup=keyb)
@@ -100,8 +109,10 @@ def choose_subevent_type(m):
         if subeventSplitType == 'навсех':
             bot.send_message(cid, 'Окей, делим на всех поровну. Кто внес деньги?', reply_markup=usr_keyb)
         elif subeventSplitType == 'вдолях':
+            funcs[6] = split_parts
             bot.send_message(cid, 'Окей, делим в долях. Кто внес деньги?', reply_markup=usr_keyb)
         elif subeventSplitType == 'насуммы':
+            funcs[6] = split_bill
             bot.send_message(cid, 'Окей, делим индивидуально на конкретные суммы. Кто внес деньги?',
                                    reply_markup=usr_keyb)
         usersData[cid]['step'] += 1
@@ -111,9 +122,119 @@ def choose_subevent_type(m):
         bot.send_message(cid, 'Ошибка, неверный тип. Введи заново', reply_markup=keyb)
 
 
-def who_credit(m):
+def who_is_sponsor(m):
+    cid = m.chat.id
+    text = m.text.lower().replace(' ', '')
+    partic = usersData[cid]['participants']
+    cur_ev = usersData[cid]['current_event']
+    if text not in partic:
+        bot.send_message(cid, 'Такого человека нет в туоовке! Укажи действющего участника')
+    else:
+        sponsor_idx = partic.index(text)
+        usersData[cid]['events'][cur_ev]['sponsor'] = text
+        usersData[cid]['events'][cur_ev]['sponsor_idx'] = sponsor_idx
+        bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev}?')
+        usersData[cid]['step'] += 1
+
+
+def sponsor_payment_sum(m):
+    cid = m.chat.id
+    text = m.text
+    cur_ev = usersData[cid]['current_event']
+    sp_type = usersData[cid]['events'][cur_ev]['split_type']
+    partic = usersData[cid]['participants']
+    try:
+        payment = float(text)
+        usersData[cid]['events'][cur_ev]['sponsor_payment'] = payment
+        if sp_type == 'навсех':
+            split_equal(m)
+            usersData[cid]['step'] = 2
+        elif sp_type == 'насуммы':
+            usersData[cid]['events'][cur_ev]['curIdx'] = 0
+            bot.send_message(cid, f'Готово! Внесение денег учтено! Пришла пора делить расходы!'
+                                  f' Какую сумму денег должен {partic[0]}')
+            usersData[cid]['events'][cur_ev]['eventData'] = []
+            usersData[cid]['events'][cur_ev]['parts'] = []
+            usersData[cid]['step'] += 1
+        elif sp_type == 'вдолях':
+            usersData[cid]['events'][cur_ev]['curIdx'] = 0
+            usersData[cid]['events'][cur_ev]['eventData'] = []
+            usersData[cid]['events'][cur_ev]['parts'] = []
+            bot.send_message(cid, f'Готово! Внесение денег учтено! Пришла пора делить расходы!'
+                                  f' Какую долю от общей суммы должен {partic[0]}')
+            usersData[cid]['step'] += 1
+    except:
+        bot.send_message(cid, 'Ошибка, вы ввели не число! Введите еще раз')
+
+
+def split_equal(m):
+    cid = m.chat.id
+    cur_ev = usersData[cid]['current_event']
+    partic = usersData[cid]['participants']
+    sponsor_idx = usersData[cid]['events'][cur_ev]['sponsor_idx']
+    sponsor_payment = usersData[cid]['events'][cur_ev]['sponsor_payment']
+    event_table = [[sponsor_payment/len(partic) if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
+                   for _ in partic]
+    usersData[cid]['events'][cur_ev]['eventData'] = event_table
+    bot.send_message(cid, 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет! Если хочешь '
+                          'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
+                          'просто введи название новой закупки!')
+
+
+def split_parts(m):
+    cid = m.chat.id
+    text = m.text
+    cur_ev = usersData[cid]['current_event']
+    curIdx = usersData[cid]['events'][cur_ev]['curIdx']
+    partic = usersData[cid]['participants']
+    sponsor_idx = usersData[cid]['events'][cur_ev]['sponsor_idx']
+    sponsor_payment = usersData[cid]['events'][cur_ev]['sponsor_payment']
+    try:
+        part = nmarray.eval_to_part(text)
+        print(part)
+        if curIdx < len(partic) - 1:
+            arr = [sponsor_payment * part if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
+            usersData[cid]['events'][cur_ev]['parts'].append(part)
+            usersData[cid]['events'][cur_ev]['eventData'].append(arr)
+            curIdx += 1
+            usersData[cid]['events'][cur_ev]['curIdx'] = curIdx
+            bot.send_message(cid, f' Какую долю от общей суммы должен {partic[curIdx]}')
+        elif curIdx == len(partic) - 1:
+            arr = [sponsor_payment * part if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
+            usersData[cid]['events'][cur_ev]['parts'].append(part)
+            usersData[cid]['events'][cur_ev]['eventData'].append(arr)
+            if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == 1:
+                usersData[cid]['step'] = 2
+                bot.send_message(cid,
+                                 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет!'
+                                 ' Если хочешь '
+                                 'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
+                                 'просто введи название новой закупки!')
+            else:
+                usersData[cid]['events'][cur_ev]['curIdx'] = 0
+                usersData[cid]['events'][cur_ev]['eventData'].clear()
+                usersData[cid]['events'][cur_ev]['parts'].clear()
+                bot.send_message(cid, f'Сумма, внесенная {partic[sponsor_idx]}, не совпарадет с введенной '
+                                      f'вами суммой. Попробуем заново с момента распределения затрат.'
+                                      f' Какую долю от общей суммы должен {partic[0]}')
+    except:
+        bot.send_message(cid, 'Ошибка ввода, введите долю верно')
+
+
+def split_bill(m):
+    print('bill')
+
+
+def tree_func(m):
+    # This function is going to be replaced
     pass
 
+
+def calculate(m):
+    print('calc')
+
+
 if __name__ == '__main__':
-    funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_credit]
+    funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_is_sponsor, sponsor_payment_sum,
+             tree_func, calculate]
     bot.polling(none_stop=True, interval=2)

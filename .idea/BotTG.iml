@@ -8,6 +8,11 @@
     <orderEntry type="jdk" jdkName="Python 3.9 (TeleBot)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="versionSpecifier" value="Greater or equal (&gt;=x.y.z)" />
+    <option name="removeUnused" value="true" />
+    <option name="modifyBaseFiles" value="true" />
+  </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="py.test" />
   </component>
