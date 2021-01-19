@@ -31,6 +31,20 @@ def cancel_conversation(m):
                               ' /add_event')
 
 
+@bot.message_handler(commands=['finish'])
+def finish(m):
+    cid = m.chat.id
+    try:
+        if usersData[cid]['step'] == 2:
+            # Calculate
+            usersData[cid]['step'] = 7
+            step = usersData[cid]['step']
+            usersData[cid]['tree'][step](m)
+        else:
+            bot.send_message(cid, 'Вы не закончили вводить данные! Введите до конца и возвращайтесь')
+    except Exception as e:
+        print(e)
+
 @bot.message_handler(commands=['help'])
 def help_cmd(m):
     bot.send_message(m.chat.id, 'Привет! Я помогу тебе посчитать, кто и кому сколько должен'
@@ -71,8 +85,6 @@ def add_participants(m):
             mes += '\n' + str(count + 1) + '. ' + str(elem)
         bot.send_message(cid, 'А вот и все наши участники! ' '\n' + mes)
         usersData[cid]['participants'] = participants
-        usersData[cid]['current_data'] = [[0 for _ in range(len(participants))]
-                                          for _ in range(len(participants))]
         bot.send_message(cid, 'Пришло время вносить данные по затратам! Введи имя первой закупки, например,'
                               ' "АЛКОГОЛЬ В Ашане".')
         # Creating table for events here, not in add_subevent, because when trying to create new event
@@ -81,6 +93,7 @@ def add_participants(m):
         usersData[cid]['step'] = 2
 
 
+# TODO: Check if new subevent name already exists
 def add_subevent(m):
     cid = m.chat.id
     usersData[cid]['events'][m.text] = None
@@ -222,16 +235,69 @@ def split_parts(m):
 
 
 def split_bill(m):
-    print('bill')
+    cid = m.chat.id
+    text = m.text
+    cur_ev = usersData[cid]['current_event']
+    curIdx = usersData[cid]['events'][cur_ev]['curIdx']
+    partic = usersData[cid]['participants']
+    sponsor_idx = usersData[cid]['events'][cur_ev]['sponsor_idx']
+    sponsor_payment = usersData[cid]['events'][cur_ev]['sponsor_payment']
+    try:
+        value = float(text)
+        if curIdx < len(partic) - 1:
+            arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
+            usersData[cid]['events'][cur_ev]['parts'].append(value)
+            usersData[cid]['events'][cur_ev]['eventData'].append(arr)
+            curIdx += 1
+            usersData[cid]['events'][cur_ev]['curIdx'] = curIdx
+            bot.send_message(cid, f' Какую сумму должен {partic[curIdx]}')
+        elif curIdx == len(partic) - 1:
+            arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
+            usersData[cid]['events'][cur_ev]['parts'].append(value)
+            usersData[cid]['events'][cur_ev]['eventData'].append(arr)
+            if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == round(sponsor_payment):
+                usersData[cid]['step'] = 2
+                bot.send_message(cid,
+                                 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет!'
+                                 ' Если хочешь '
+                                 'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
+                                 'просто введи название новой закупки!')
+            else:
+                usersData[cid]['events'][cur_ev]['curIdx'] = 0
+                usersData[cid]['events'][cur_ev]['eventData'].clear()
+                usersData[cid]['events'][cur_ev]['parts'].clear()
+                bot.send_message(cid, f'Сумма, внесенная {partic[sponsor_idx]}, не совпарадет с введенной '
+                                      f'вами суммой. Попробуем заново с момента распределения затрат.'
+                                      f' Какую долю от общей суммы должен {partic[0]}')
+    except:
+        bot.send_message(cid, 'Ошибка, введи верную сумму!')
 
 
 def tree_func(m):
     # This function is going to be replaced
     pass
 
-
+# TODO: clear user data after finish
 def calculate(m):
-    print('calc')
+    cid = m.chat.id
+    events = usersData[cid]['events'].values()
+    partic = usersData[cid]['participants']
+    try:
+        # Sum up all the events data arrays as numpy arrays
+        summedArrays = nmarray.prepare_events(events)
+        print(summedArrays)
+        transaction_holders = nmarray.main_task(summedArrays)
+        print(summedArrays)
+        final_message_text = str()
+        for dolg in transaction_holders:
+            final_message_text += (partic[dolg[0]].capitalize() + ' должен ' + partic[dolg[1]].capitalize() +
+                                   ' ' + str(round(summedArrays[dolg[0]][dolg[1]], 2)) + ' монет\n')
+        inline_repost = types.InlineKeyboardMarkup()
+        inline_repost.add(types.InlineKeyboardButton(text='Переслать результат в чатик',
+                                                     switch_inline_query=final_message_text))
+        bot.send_message(cid, text=final_message_text, reply_markup=inline_repost)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':

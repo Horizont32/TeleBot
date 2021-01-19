@@ -1,3 +1,5 @@
+import numpy as np
+
 def eval_to_part(message):
     message = message.replace(' ', '')
     if '/' in message:
@@ -27,6 +29,7 @@ def count(array2D):
 
 
 def vzaimozachet(a):
+    # That func creates list of
     list_dolgov = []
     for rowI in range(len(a)):
         for colI in range(len(a[rowI])):
@@ -167,7 +170,7 @@ def lower_transactions_comper(a):
 
 def main_task(checkmate):
     count(checkmate)
-    # print(checkmate)
+    print(checkmate)
     lower_transactions_comper(checkmate)
     # list_dolgov = vzaimozachet(checkmate)
     return vzaimozachet(checkmate)
@@ -191,8 +194,10 @@ def is_digit(string):
             return False
 
 
-def check_summ(parts):
-    return sum(parts) == 1
+def prepare_events(events):
+    summedEvents = sum([np.array(event['eventData']) for event in events])
+    np.fill_diagonal(summedEvents, 0)
+    return summedEvents.tolist()
 
 
 # try:
