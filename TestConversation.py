@@ -6,19 +6,28 @@ import nmarray
 bot = telebot.TeleBot(config.token, threaded=True)
 
 usersData = {}
+knownUsers = set()
 
 
 def get_user_step(uid):
     if uid in usersData:
         return usersData[uid]['step']
     else:
+        knownUsers.add(uid)
         usersData[uid] = {'step': 0}
         usersData[uid]['tree'] = funcs
-        print("New user detected, who hasn't used \"/add_event\" yet")
+        print("New user {uid}detected, who hasn't used \"/add_event\" yet")
         return 0
 
 
-@bot.message_handler(func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
+@bot.message_handler(commands=['send_message'], func=lambda msg: msg.chat.id == config.sender_id)
+def send_announcement(m):
+    text = m.text
+    for user in knownUsers:
+        bot.send_message(user, text.replace('/send_message', ''))
+
+
+@bot.message_handler(content_types=['text'], func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
 def cancel_conversation(m):
     cid = m.chat.id
     try:

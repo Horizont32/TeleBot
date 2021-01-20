@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d90597fb-b43a-4a3e-a742-9fe8b1258fcc" name="Default" comment="new_req">
+      <change afterPath="$PROJECT_DIR$/.gitignore.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestConversation.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestConversation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fortest.py" beforeDir="false" afterPath="$PROJECT_DIR$/fortest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nmarray.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmarray.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
