@@ -1,1 +1,13 @@
+#Remove configuration file
 config.py
+
+#Remove virtual envirinments
+/venv/
+/venv2/
+
+#. folders
+/.idea/
+/.handel-saves/
+
+#caching
+/__pycache__/
