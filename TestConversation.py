@@ -8,7 +8,7 @@ bot = telebot.TeleBot(config.token, threaded=True)
 usersData = {}
 knownUsers = set()
 
-
+# TODO: add buttons to every reply
 def get_user_step(uid):
     if uid in usersData:
         return usersData[uid]['step']
@@ -16,7 +16,7 @@ def get_user_step(uid):
         knownUsers.add(uid)
         usersData[uid] = {'step': 0}
         usersData[uid]['tree'] = funcs
-        print("New user {uid}detected, who hasn't used \"/add_event\" yet")
+        print(f"New user {uid} detected, who hasn't used \"/add_event\" yet")
         return 0
 
 
@@ -25,6 +25,24 @@ def send_announcement(m):
     text = m.text
     for user in knownUsers:
         bot.send_message(user, text.replace('/send_message', ''))
+
+
+@bot.message_handler(commands=['delete_me'])
+def send_announcement(m):
+    knownUsers.remove(m.chat.id)
+
+
+@bot.message_handler(content_types=['audio', 'document', 'photo', 'sticker', 'video', 'video_note',
+                                    'voice', 'location', 'contact', 'new_chat_members', 'left_chat_member',
+                                    'new_chat_title', 'new_chat_photo', 'delete_chat_photo', 'group_chat_created',
+                                    'supergroup_chat_created', 'channel_chat_created', 'migrate_to_chat_id',
+                                    'migrate_from_chat_id', 'pinned_message'])
+def unsupported_message(m):
+    bot.send_message(m.chat.id, 'Извини, с таким типом сообщения я не умею работать =) Мне нужен только текст')
+
+
+def send_announcement(m):
+    knownUsers.remove(m.chat.id)
 
 
 @bot.message_handler(content_types=['text'], func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
@@ -54,6 +72,7 @@ def finish(m):
     except Exception as e:
         print(e)
 
+
 @bot.message_handler(commands=['help'])
 def help_cmd(m):
     bot.send_message(m.chat.id, 'Привет! Я помогу тебе посчитать, кто и кому сколько должен'
@@ -71,7 +90,32 @@ def add_event(m):
                                 ' Например: Вася, Юля, Петя')
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(commands=['fix_event'], func=lambda msg: msg.chat.id in usersData)
+def fix_event(m):
+    cid = m.chat.id
+    text = m.text
+    try:
+        chosenEvent = text.replace('/fix_event', '').strip()
+        if chosenEvent:
+            cur_ev = chosenEvent
+            usersData[cid]['current_event'] = cur_ev
+        cur_ev = usersData[cid]['current_event']
+        usersData[cid]['events'][cur_ev].clear()
+        usersData[cid]['step'] = 3
+        bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {cur_ev}')
+        keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+        keyb.row('На всех', 'В долях', 'На суммы')
+        keyb.row('Отмена')
+        bot.send_message(cid, 'Название есть! Давай уточним, как делим бабки'
+                              ': На всех поровну, у каждого своя доля (например, половина (1/2), '
+                              'четверть (1/4), 1 или 0,2), '
+                              'или каждый внес определенную СУММУ?', reply_markup=keyb)
+        print('cleared', usersData)
+    except:
+        bot.send_message(cid, 'Не нашел такого события, либо его нет, попробуй ввести еще раз!')
+
+
+@bot.message_handler(content_types=['text'], func=lambda msg: not msg.text.startswith('/fix_event'))
 def main_handler(m):
     uid = m.chat.id
     print('MainHandler_Called')
@@ -102,20 +146,25 @@ def add_participants(m):
         usersData[cid]['step'] = 2
 
 
-# TODO: Check if new subevent name already exists
 def add_subevent(m):
     cid = m.chat.id
-    usersData[cid]['events'][m.text] = None
-    usersData[cid]['current_event'] = m.text
-    # Creating a keyboard
-    keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    keyb.row('На всех', 'В долях', 'На суммы')
-    keyb.row('Отмена')
-    bot.send_message(cid, 'Окей, название добавлено. Давай уточним, как делим бабки'
-                                ': На всех поровну, у каждого своя доля (например, половина (1/2), '
-                                'четверть (1/4), 1 или 0,2), '
-                                'или каждый внес определенную СУММУ?', reply_markup=keyb)
-    usersData[cid]['step'] = 3
+    try:
+        # first check if subevent name already exists in user events
+        if usersData[cid]['events']:
+            raise Exception
+        usersData[cid]['events'][m.text] = None
+        usersData[cid]['current_event'] = m.text
+        # Creating a keyboard
+        keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+        keyb.row('На всех', 'В долях', 'На суммы')
+        keyb.row('Отмена')
+        bot.send_message(cid, 'Окей, название есть! Давай уточним, как делим бабки'
+                                    ': На всех поровну, у каждого своя доля (например, половина (1/2), '
+                                    'четверть (1/4), 1 или 0,2), '
+                                    'или каждый внес определенную СУММУ?', reply_markup=keyb)
+        usersData[cid]['step'] = 3
+    except:
+        bot.send_message(cid, 'Ошибка в имени, введи пожалуйста заново (возможно, такое имя уже есть')
 
 
 def choose_subevent_type(m):
@@ -150,7 +199,7 @@ def who_is_sponsor(m):
     partic = usersData[cid]['participants']
     cur_ev = usersData[cid]['current_event']
     if text not in partic:
-        bot.send_message(cid, 'Такого человека нет в туоовке! Укажи действющего участника')
+        bot.send_message(cid, 'Такого человека нет в туcовке! Укажи действющего участника')
     else:
         sponsor_idx = partic.index(text)
         usersData[cid]['events'][cur_ev]['sponsor'] = text
@@ -286,7 +335,7 @@ def tree_func(m):
     # This function is going to be replaced
     pass
 
-# TODO: clear user data after finish
+
 def calculate(m):
     cid = m.chat.id
     events = usersData[cid]['events'].values()
@@ -294,9 +343,7 @@ def calculate(m):
     try:
         # Sum up all the events data arrays as numpy arrays
         summedArrays = nmarray.prepare_events(events)
-        print(summedArrays)
         transaction_holders = nmarray.main_task(summedArrays)
-        print(summedArrays)
         final_message_text = str()
         for dolg in transaction_holders:
             final_message_text += (partic[dolg[0]].capitalize() + ' должен ' + partic[dolg[1]].capitalize() +
@@ -305,8 +352,9 @@ def calculate(m):
         inline_repost.add(types.InlineKeyboardButton(text='Переслать результат в чатик',
                                                      switch_inline_query=final_message_text))
         bot.send_message(cid, text=final_message_text, reply_markup=inline_repost)
-    except Exception as e:
-        print(e)
+        del usersData[cid]
+    except:
+        bot.send_message(cid, 'Проблема с расчетом, что-то пошло не так, попробуйте снова ввести \n /finish')
 
 
 if __name__ == '__main__':
