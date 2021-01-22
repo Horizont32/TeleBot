@@ -2,11 +2,13 @@ import config
 import telebot
 from telebot import types
 import nmarray
+from threading import Thread
 
 bot = telebot.TeleBot(config.token, threaded=True)
 
 usersData = {}
 knownUsers = set()
+
 
 # TODO: add buttons to every reply
 def get_user_step(uid):
@@ -28,7 +30,7 @@ def send_announcement(m):
 
 
 @bot.message_handler(commands=['delete_me'])
-def send_announcement(m):
+def delete_user(m):
     knownUsers.remove(m.chat.id)
 
 
@@ -41,17 +43,13 @@ def unsupported_message(m):
     bot.send_message(m.chat.id, 'Извини, с таким типом сообщения я не умею работать =) Мне нужен только текст')
 
 
-def send_announcement(m):
-    knownUsers.remove(m.chat.id)
-
-
 @bot.message_handler(content_types=['text'], func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
 def cancel_conversation(m):
     cid = m.chat.id
     try:
         del usersData[cid]
         print(usersData)
-        bot.send_message(cid, 'Полученные данные сброшены! Чтобы начать'
+        bot.send_message(cid, 'Все полученные данные сброшены! Чтобы начать'
                               ' заново, введите /add_event')
     except:
         bot.send_message(cid, 'Мне нечего удалять, данные отсутствуют! Чтобы начать, введите'
@@ -61,16 +59,18 @@ def cancel_conversation(m):
 @bot.message_handler(commands=['finish'])
 def finish(m):
     cid = m.chat.id
+    step = get_user_step(cid)
     try:
-        if usersData[cid]['step'] == 2:
+        if step == 2:
             # Calculate
             usersData[cid]['step'] = 7
             step = usersData[cid]['step']
+            usersData[cid]['last_update'] = m.date
             usersData[cid]['tree'][step](m)
         else:
             bot.send_message(cid, 'Вы не закончили вводить данные! Введите до конца и возвращайтесь')
-    except Exception as e:
-        print(e)
+    except:
+        bot.send_message(cid, 'Ошибочка вышла, ты мне еще не писал, так что сори =)')
 
 
 @bot.message_handler(commands=['help'])
@@ -84,6 +84,7 @@ def help_cmd(m):
 def add_event(m):
     uid = m.chat.id
     get_user_step(uid)
+    usersData[uid]['last_update'] = m.date
     usersData[uid]['step'] = 1
     bot.send_message(uid, 'Событие создано! Давай добавим участников! Перечисли'
                                 ' ОБЯЗАТЕЛЬНО через запятую, регистр при этом безразличен.'
@@ -121,6 +122,7 @@ def main_handler(m):
     print('MainHandler_Called')
     print('Text :', m.text)
     step = get_user_step(uid)
+    usersData[uid]['last_update'] = m.date
     print(usersData[uid]['tree'][step].__name__)
     usersData[uid]['tree'][step](m)
     print(usersData)
@@ -360,4 +362,8 @@ def calculate(m):
 if __name__ == '__main__':
     funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_is_sponsor, sponsor_payment_sum,
              tree_func, calculate]
+    thread1 = Thread(target=nmarray.poll_last_update, args=(usersData,))
+    thread1.start()
     bot.polling(none_stop=True, interval=2)
+
+
