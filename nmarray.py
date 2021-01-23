@@ -103,7 +103,7 @@ def poll_last_update(usersData):
                 del usersData[user]
                 users_to_delete.remove(user)
                 print(f'deleted {user}')
-            sleep(600)
+            sleep(5)
         except:
             print('Exception while polling')
 

@@ -4,7 +4,8 @@ from telebot import types
 import nmarray
 from threading import Thread
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot(config.token, threaded=True)
+bot.worker_pool = telebot.util.ThreadPool(num_threads=3)
 
 usersData = {}
 knownUsers = set()
