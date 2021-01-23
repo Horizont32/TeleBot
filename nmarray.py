@@ -1,6 +1,12 @@
 import numpy as np
 from time import time, sleep
 
+unknown_types = ['audio', 'document', 'photo', 'sticker', 'video', 'video_note',
+                                    'voice', 'location', 'contact', 'new_chat_members', 'left_chat_member',
+                                    'new_chat_title', 'new_chat_photo', 'delete_chat_photo', 'group_chat_created',
+                                    'supergroup_chat_created', 'channel_chat_created', 'migrate_to_chat_id',
+                                    'migrate_from_chat_id', 'pinned_message']
+
 def eval_to_part(message):
     message = message.replace(' ', '')
     if '/' in message:
@@ -112,7 +118,6 @@ def fill_knownusers(knownUsers):
     try:
         with open('data.txt', 'r') as f:
             for line in f:
-                print(line)
                 knownUsers.add(int(line.replace('\n', '')))
     except:
         print('ERROR FILLING knownUsers')

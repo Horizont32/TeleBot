@@ -3,6 +3,7 @@ import telebot
 from telebot import types
 import nmarray
 from threading import Thread
+import messages
 
 bot = telebot.TeleBot(config.token, threaded=True)
 bot.worker_pool = telebot.util.ThreadPool(num_threads=3)
@@ -17,7 +18,7 @@ def get_user_step(uid):
         return usersData[uid]['step']
     else:
         knownUsers.add(uid)
-        print(knownUsers)
+        print('users: ', knownUsers)
         nmarray.write_user_to_file(uid)
         usersData[uid] = {'step': 0}
         usersData[uid]['tree'] = funcs
@@ -37,11 +38,7 @@ def delete_user(m):
     knownUsers.remove(m.chat.id)
 
 
-@bot.message_handler(content_types=['audio', 'document', 'photo', 'sticker', 'video', 'video_note',
-                                    'voice', 'location', 'contact', 'new_chat_members', 'left_chat_member',
-                                    'new_chat_title', 'new_chat_photo', 'delete_chat_photo', 'group_chat_created',
-                                    'supergroup_chat_created', 'channel_chat_created', 'migrate_to_chat_id',
-                                    'migrate_from_chat_id', 'pinned_message'])
+@bot.message_handler(content_types=nmarray.unknown_types)
 def unsupported_message(m):
     bot.send_message(m.chat.id, 'Извини, с таким типом сообщения я не умею работать =) Мне нужен только текст')
 
@@ -51,11 +48,9 @@ def cancel_conversation(m):
     cid = m.chat.id
     try:
         del usersData[cid]
-        bot.send_message(cid, 'Все полученные данные сброшены! Чтобы начать'
-                              ' заново, введите /add_event')
+        bot.send_message(cid, messages.data_cleared)
     except:
-        bot.send_message(cid, 'Мне нечего удалять, данные отсутствуют! Чтобы начать, введите'
-                              ' /add_event')
+        bot.send_message(cid, messages.nothing_to_delete)
 
 
 @bot.message_handler(commands=['finish'])
@@ -70,16 +65,14 @@ def finish(m):
             usersData[cid]['last_update'] = m.date
             usersData[cid]['tree'][step](m)
         else:
-            bot.send_message(cid, 'Вы не закончили вводить данные! Введите до конца и возвращайтесь')
+            bot.send_message(cid, messages.finish_before_all_data_recieved)
     except:
-        bot.send_message(cid, 'Ошибочка вышла, ты мне еще не писал, так что сори =)')
+        bot.send_message(cid, messages.finish_no_data)
 
 
 @bot.message_handler(commands=['help'])
 def help_cmd(m):
-    bot.send_message(m.chat.id, 'Привет! Я помогу тебе посчитать, кто и кому сколько должен'
-                                ' на большой вечеринке с минимальным количеством транзакций!'
-                                ' Для того, что начать и создать вечеринку, введи /add_event')
+    bot.send_message(m.chat.id, messages.help_msg)
 
 
 @bot.message_handler(commands=['add_event'])
@@ -88,34 +81,30 @@ def add_event(m):
     get_user_step(uid)
     usersData[uid]['last_update'] = m.date
     usersData[uid]['step'] = 1
-    bot.send_message(uid, 'Событие создано! Давай добавим участников! Перечисли'
-                                ' ОБЯЗАТЕЛЬНО через запятую, регистр при этом безразличен.'
-                                ' Например: Вася, Юля, Петя')
+    bot.send_message(uid, messages.addEvent)
 
 
 @bot.message_handler(commands=['fix_event'], func=lambda msg: msg.chat.id in usersData)
 def fix_event(m):
     cid = m.chat.id
     text = m.text
+    text_no_cmd = text.replace('/fix_event', '')
     try:
-        chosenEvent = text.replace('/fix_event', '').strip()
+        chosenEvent = text_no_cmd.replace(' ', '').lower()
         if chosenEvent:
             cur_ev = chosenEvent
             usersData[cid]['current_event'] = cur_ev
         cur_ev = usersData[cid]['current_event']
         usersData[cid]['events'][cur_ev].clear()
         usersData[cid]['step'] = 3
-        bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {cur_ev}')
+        bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {text_no_cmd}')
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
         keyb.row('Отмена')
-        bot.send_message(cid, 'Название есть! Давай уточним, как делим бабки'
-                              ': На всех поровну, у каждого своя доля (например, половина (1/2), '
-                              'четверть (1/4), 1 или 0,2), '
-                              'или каждый внес определенную СУММУ?', reply_markup=keyb)
-        print('cleared', usersData)
+        bot.send_message(cid, messages.fixEvent_success, reply_markup=keyb)
+        print(f'Event {cur_ev} cleared')
     except:
-        bot.send_message(cid, 'Не нашел такого события, либо его нет, попробуй ввести еще раз!')
+        bot.send_message(cid, messages.fixEvent_error)
 
 
 @bot.message_handler(content_types=['text'], func=lambda msg: not msg.text.startswith('/fix_event'))
@@ -133,41 +122,39 @@ def main_handler(m):
 
 def add_participants(m):
     cid = m.chat.id
-    participants = tuple(m.text.lower().replace(' ', '').replace('\n', ',').replace(',,',',').split(','))
-    if nmarray.check_duplicate(participants):
-        bot.send_message(cid, 'Друг, у вас в тусовке есть тезки, это круто, но ты, боюсь, '
-                                    'запутаешься, когда я выведу результат. Введи уникальные имена')
-    else:
-        mes = ''
-        for count, elem in enumerate(participants):
-            mes += '\n' + str(count + 1) + '. ' + str(elem)
-        bot.send_message(cid, 'А вот и все наши участники! ' '\n' + mes)
-        usersData[cid]['participants'] = participants
-        bot.send_message(cid, 'Пришло время вносить данные по затратам! Введи имя первой закупки, например,'
-                              ' "АЛКОГОЛЬ В Ашане".')
-        # Creating table for events here, not in add_subevent, because when trying to create new event
-        # it is going to make that field default
-        usersData[cid]['events'] = {}
-        usersData[cid]['step'] = 2
+    try:
+        participants = tuple(m.text.lower().replace(' ', '').replace('\n', ',').replace(',,',',').split(','))
+        if nmarray.check_duplicate(participants):
+            bot.send_message(cid, messages.addPartic_error)
+        else:
+            mes = ''
+            for count, elem in enumerate(participants):
+                mes += '\n' + str(count + 1) + '. ' + str(elem)
+            bot.send_message(cid, 'А вот и все наши участники! ' '\n' + mes)
+            usersData[cid]['participants'] = participants
+            bot.send_message(cid, messages.addPartic_success)
+            # Creating table for events here, not in add_subevent, because when trying to create new event
+            # it is going to make that field default
+            usersData[cid]['events'] = {}
+            usersData[cid]['step'] = 2
+    except:
+        bot.send_message(cid, 'Что-то пошло не так, попробуй ввести участников снова!')
 
 
 def add_subevent(m):
     cid = m.chat.id
-    text = m.text
+    text = m.text.replace(' ', '').lower()
     try:
         # first check if subevent name already exists in user events
         if text in usersData[cid]['events']:
             raise Exception
-        usersData[cid]['events'][m.text] = None
-        usersData[cid]['current_event'] = m.text
+        usersData[cid]['events'][text] = None
+        usersData[cid]['current_event'] = text
         # Creating a keyboard
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
         keyb.row('Отмена')
-        bot.send_message(cid, 'Окей, название есть! Давай уточним, как делим бабки'
-                                    ': На всех поровну, у каждого своя доля (например, половина (1/2), '
-                                    'четверть (1/4), 1 или 0,2), '
-                                    'или каждый внес определенную СУММУ?', reply_markup=keyb)
+        bot.send_message(cid, messages.addSubEvent_success, reply_markup=keyb)
         usersData[cid]['step'] = 3
     except:
         bot.send_message(cid, 'Ошибка в имени, введи пожалуйста заново (возможно, такое имя уже есть)')
@@ -178,7 +165,7 @@ def choose_subevent_type(m):
     text = m.text
     usr_keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     usr_keyb.add(*usersData[cid]['participants'])
-    usr_keyb.row('Отмена')
+    usr_keyb.row('/fix_event')
     subeventSplitType = text.lower().replace(' ', '')
     if subeventSplitType in ['навсех', 'вдолях', 'насуммы']:
         cur_ev = usersData[cid]['current_event']
@@ -253,9 +240,7 @@ def split_equal(m):
     event_table = [[sponsor_payment/len(partic) if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
                    for _ in partic]
     usersData[cid]['events'][cur_ev]['eventData'] = event_table
-    bot.send_message(cid, 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет! Если хочешь '
-                          'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
-                          'просто введи название новой закупки!')
+    bot.send_message(cid, messages.split_success)
 
 
 def split_parts(m):
@@ -282,11 +267,7 @@ def split_parts(m):
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
             if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == 1:
                 usersData[cid]['step'] = 2
-                bot.send_message(cid,
-                                 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет!'
-                                 ' Если хочешь '
-                                 'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
-                                 'просто введи название новой закупки!')
+                bot.send_message(cid, messages.split_success)
             else:
                 usersData[cid]['events'][cur_ev]['curIdx'] = 0
                 usersData[cid]['events'][cur_ev]['eventData'].clear()
@@ -321,11 +302,7 @@ def split_bill(m):
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
             if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == round(sponsor_payment):
                 usersData[cid]['step'] = 2
-                bot.send_message(cid,
-                                 'Классно, событие учтено! Давай добавим новое событие или же закончим расчет!'
-                                 ' Если хочешь '
-                                 'закончить расчет, введи /finish. Если хочешь продолжить и добавить еще одну закупку, '
-                                 'просто введи название новой закупки!')
+                bot.send_message(cid, messages.split_success)
             else:
                 usersData[cid]['events'][cur_ev]['curIdx'] = 0
                 usersData[cid]['events'][cur_ev]['eventData'].clear()
