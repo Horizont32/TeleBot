@@ -5,12 +5,13 @@ from time import time, sleep
 users = {'1424', '214', '1234'}
 
 
-def known_users_check(users, uid):
+def known_users_check(uid):
     with open('data.txt', mode='r+') as f:
-        for line in f:
-            users.add(line)
-            if not uid == line:
-                f.write(uid)
+        lines = [line.strip('\n') for line in f]
+        print(lines)
+        if uid not in lines:
+            f.write(uid + '\n')
 
-known_users_check(users, '214')
+
+known_users_check('111')
 print(users)

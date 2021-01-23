@@ -118,14 +118,17 @@ def fill_knownusers(knownUsers):
     try:
         with open('data.txt', 'r') as f:
             for line in f:
-                knownUsers.add(int(line.replace('\n', '')))
+                knownUsers.add(int(line.rstrip('\n')))
     except:
         print('ERROR FILLING knownUsers')
 
 
 def write_user_to_file(uid):
     try:
-        with open('data.txt', 'a') as f:
-            f.write(str(uid) + '\n')
+        with open('data.txt', 'a+') as f:
+            users = [line.strip('\n') for line in f]
+            if uid not in users:
+                print(f'User {uid} added to file')
+                f.write(str(uid) + '\n')
     except:
         print('ERROR Writing uID to file')
