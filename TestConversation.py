@@ -95,9 +95,10 @@ def fix_event(m):
             cur_ev = chosenEvent
             usersData[cid]['current_event'] = cur_ev
         cur_ev = usersData[cid]['current_event']
+        cur_ev_raw = usersData[cid]['events'][cur_ev]['raw_event_name']
         usersData[cid]['events'][cur_ev].clear()
         usersData[cid]['step'] = 3
-        bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {text_no_cmd}')
+        bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {cur_ev_raw}')
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
         keyb.row('Отмена')
@@ -143,12 +144,13 @@ def add_participants(m):
 
 def add_subevent(m):
     cid = m.chat.id
+    raw_text = m.text
     text = m.text.replace(' ', '').lower()
     try:
         # first check if subevent name already exists in user events
         if text in usersData[cid]['events']:
             raise Exception
-        usersData[cid]['events'][text] = None
+        usersData[cid]['events'][text] = {'raw_event_name': raw_text}
         usersData[cid]['current_event'] = text
         # Creating a keyboard
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
@@ -191,13 +193,14 @@ def who_is_sponsor(m):
     text = m.text.lower().replace(' ', '')
     partic = usersData[cid]['participants']
     cur_ev = usersData[cid]['current_event']
+    cur_ev_raw = usersData[cid]['events'][cur_ev]['raw_event_name']
     if text not in partic:
         bot.send_message(cid, 'Такого человека нет в туcовке! Укажи действющего участника')
     else:
         sponsor_idx = partic.index(text)
         usersData[cid]['events'][cur_ev]['sponsor'] = text
         usersData[cid]['events'][cur_ev]['sponsor_idx'] = sponsor_idx
-        bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev}?')
+        bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev_raw}?')
         usersData[cid]['step'] += 1
 
 
