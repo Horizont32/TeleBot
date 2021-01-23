@@ -107,3 +107,20 @@ def poll_last_update(usersData):
         except:
             print('Exception while polling')
 
+
+def fill_knownusers(knownUsers):
+    try:
+        with open('data.txt', 'r') as f:
+            for line in f:
+                print(line)
+                knownUsers.add(int(line.replace('\n', '')))
+    except:
+        print('ERROR FILLING knownUsers')
+
+
+def write_user_to_file(uid):
+    try:
+        with open('data.txt', 'a') as f:
+            f.write(str(uid) + '\n')
+    except:
+        print('ERROR Writing uID to file')

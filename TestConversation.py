@@ -17,6 +17,8 @@ def get_user_step(uid):
         return usersData[uid]['step']
     else:
         knownUsers.add(uid)
+        print(knownUsers)
+        nmarray.write_user_to_file(uid)
         usersData[uid] = {'step': 0}
         usersData[uid]['tree'] = funcs
         print(f"New user {uid} detected, who hasn't used \"/add_event\" yet")
@@ -49,7 +51,6 @@ def cancel_conversation(m):
     cid = m.chat.id
     try:
         del usersData[cid]
-        print(usersData)
         bot.send_message(cid, 'Все полученные данные сброшены! Чтобы начать'
                               ' заново, введите /add_event')
     except:
@@ -122,6 +123,7 @@ def main_handler(m):
     uid = m.chat.id
     print('MainHandler_Called')
     print('Text :', m.text)
+    print('Name :', m.from_user.username)
     step = get_user_step(uid)
     usersData[uid]['last_update'] = m.date
     print(usersData[uid]['tree'][step].__name__)
@@ -364,6 +366,7 @@ def calculate(m):
 if __name__ == '__main__':
     funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_is_sponsor, sponsor_payment_sum,
              tree_func, calculate]
+    nmarray.fill_knownusers(knownUsers)
     thread1 = Thread(target=nmarray.poll_last_update, args=(usersData,))
     thread1.start()
     bot.polling(none_stop=True, interval=2)
