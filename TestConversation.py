@@ -4,7 +4,7 @@ from telebot import types
 import nmarray
 from threading import Thread
 
-bot = telebot.TeleBot(config.token, threaded=True)
+bot = telebot.TeleBot(config.token)
 
 usersData = {}
 knownUsers = set()
@@ -150,9 +150,10 @@ def add_participants(m):
 
 def add_subevent(m):
     cid = m.chat.id
+    text = m.text
     try:
         # first check if subevent name already exists in user events
-        if usersData[cid]['events']:
+        if text in usersData[cid]['events']:
             raise Exception
         usersData[cid]['events'][m.text] = None
         usersData[cid]['current_event'] = m.text
@@ -166,7 +167,7 @@ def add_subevent(m):
                                     'или каждый внес определенную СУММУ?', reply_markup=keyb)
         usersData[cid]['step'] = 3
     except:
-        bot.send_message(cid, 'Ошибка в имени, введи пожалуйста заново (возможно, такое имя уже есть')
+        bot.send_message(cid, 'Ошибка в имени, введи пожалуйста заново (возможно, такое имя уже есть)')
 
 
 def choose_subevent_type(m):
