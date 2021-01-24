@@ -126,7 +126,8 @@ def fill_knownusers(knownUsers):
 def write_user_to_file(uid):
     try:
         with open('data.txt', 'a+') as f:
-            users = [line.strip('\n') for line in f]
+            users = [line.rstrip('\n') for line in f]
+            print(uid, users)
             if uid not in users:
                 print(f'User {uid} added to file')
                 f.write(str(uid) + '\n')

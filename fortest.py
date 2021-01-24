@@ -7,7 +7,7 @@ users = {'1424', '214', '1234'}
 
 def known_users_check(uid):
     with open('data.txt', mode='r+') as f:
-        lines = [line.strip('\n') for line in f]
+        lines = [line.rstrip('\n') for line in f]
         print(lines)
         if uid not in lines:
             f.write(uid + '\n')
