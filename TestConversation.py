@@ -124,7 +124,8 @@ def main_handler(m):
 def add_participants(m):
     cid = m.chat.id
     try:
-        participants = tuple(m.text.lower().replace(' ', '').replace('\n', ',').replace(',,',',').split(','))
+        raw_data = m.text.lower().replace(' ', '').replace('\n', ',').replace(',,',',').split(',')
+        participants = tuple([part for part in raw_data if part])
         if nmarray.check_duplicate(participants):
             bot.send_message(cid, messages.addPartic_error)
         else:
@@ -216,6 +217,7 @@ def sponsor_payment_sum(m):
     partic = usersData[cid]['participants']
     try:
         payment = float(text)
+        assert payment >= 0
         usersData[cid]['events'][cur_ev]['sponsor_payment'] = payment
         if sp_type == 'навсех':
             split_equal(m)
@@ -239,7 +241,7 @@ def sponsor_payment_sum(m):
                                   f'\nКакую долю от общей суммы должен {partic[0]}', reply_markup=parts_keyb)
             usersData[cid]['step'] += 1
     except:
-        bot.send_message(cid, 'Ошибка, вы ввели не число! Введите еще раз')
+        bot.send_message(cid, 'Ошибка, вы ввели не число (или оно отрицательное)! Введите еще раз')
 
 
 def split_equal(m):
@@ -268,7 +270,7 @@ def split_parts(m):
     parts_keyb.row('/fix_event')
     try:
         part = nmarray.eval_to_part(text)
-        print(part)
+        assert part >= 0
         if curIdx < len(partic) - 1:
             arr = [sponsor_payment * part if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
             usersData[cid]['events'][cur_ev]['parts'].append(part)
@@ -304,6 +306,7 @@ def split_bill(m):
     sponsor_payment = usersData[cid]['events'][cur_ev]['sponsor_payment']
     try:
         value = float(text)
+        assert value >= 0
         if curIdx < len(partic) - 1:
             arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
             usersData[cid]['events'][cur_ev]['parts'].append(value)
