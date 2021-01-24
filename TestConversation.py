@@ -195,12 +195,16 @@ def who_is_sponsor(m):
     cur_ev = usersData[cid]['current_event']
     cur_ev_raw = usersData[cid]['events'][cur_ev]['raw_event_name']
     if text not in partic:
-        bot.send_message(cid, 'Такого человека нет в туcовке! Укажи действющего участника')
+        usr_keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+        usr_keyb.add(*usersData[cid]['participants'])
+        usr_keyb.row('/fix_event')
+        bot.send_message(cid, 'Такого человека нет в туcовке! Укажи действющего участника', reply_markup=usr_keyb)
     else:
         sponsor_idx = partic.index(text)
         usersData[cid]['events'][cur_ev]['sponsor'] = text
         usersData[cid]['events'][cur_ev]['sponsor_idx'] = sponsor_idx
-        bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev_raw}?')
+        bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev_raw}?',
+                         reply_markup=types.ReplyKeyboardRemove)
         usersData[cid]['step'] += 1
 
 
@@ -224,6 +228,10 @@ def sponsor_payment_sum(m):
             usersData[cid]['events'][cur_ev]['parts'] = []
             usersData[cid]['step'] += 1
         elif sp_type == 'вдолях':
+            but_list = messages.buts4parts(partic)
+            parts_keyb = types.ReplyKeyboardMarkup(one_time_keyboard=False, resize_keyboard=True, row_width=5)
+            parts_keyb.add(*but_list)
+            parts_keyb.row('/fix_event')
             usersData[cid]['events'][cur_ev]['curIdx'] = 0
             usersData[cid]['events'][cur_ev]['eventData'] = []
             usersData[cid]['events'][cur_ev]['parts'] = []
@@ -270,14 +278,18 @@ def split_parts(m):
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
             if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == 1:
                 usersData[cid]['step'] = 2
-                bot.send_message(cid, messages.split_success)
+                bot.send_message(cid, messages.split_success, reply_markup=types.ReplyKeyboardRemove)
             else:
                 usersData[cid]['events'][cur_ev]['curIdx'] = 0
                 usersData[cid]['events'][cur_ev]['eventData'].clear()
                 usersData[cid]['events'][cur_ev]['parts'].clear()
+                but_list = messages.buts4parts(partic)
+                parts_keyb = types.ReplyKeyboardMarkup(one_time_keyboard=False, resize_keyboard=True, row_width=5)
+                parts_keyb.add(*but_list)
+                parts_keyb.row('/fix_event')
                 bot.send_message(cid, f'Сумма, внесенная {partic[sponsor_idx]}, не совпарадет с введенной '
                                       f'вами суммой. Попробуем заново с момента распределения затрат.'
-                                      f' Какую долю от общей суммы должен {partic[0]}')
+                                      f' Какую долю от общей суммы должен {partic[0]}', reply_markup=parts_keyb)
     except:
         bot.send_message(cid, 'Ошибка ввода, введите долю верно')
 
@@ -312,7 +324,7 @@ def split_bill(m):
                 usersData[cid]['events'][cur_ev]['parts'].clear()
                 bot.send_message(cid, f'Сумма, внесенная {partic[sponsor_idx]}, не совпарадет с введенной '
                                       f'вами суммой. Попробуем заново с момента распределения затрат.'
-                                      f' Какую долю от общей суммы должен {partic[0]}')
+                                      f' Какую сумму должен {partic[0]}')
     except:
         bot.send_message(cid, 'Ошибка, введи верную сумму!')
 
