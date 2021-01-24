@@ -155,7 +155,7 @@ def add_subevent(m):
         # Creating a keyboard
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
-        keyb.row('Отмена')
+        keyb.row('/fix_event')
         bot.send_message(cid, messages.addSubEvent_success, reply_markup=keyb)
         usersData[cid]['step'] = 3
     except:
@@ -171,7 +171,7 @@ def choose_subevent_type(m):
     subeventSplitType = text.lower().replace(' ', '')
     if subeventSplitType in ['навсех', 'вдолях', 'насуммы']:
         cur_ev = usersData[cid]['current_event']
-        usersData[cid]['events'][cur_ev] = {'split_type': subeventSplitType}
+        usersData[cid]['events'][cur_ev]['split_type'] = subeventSplitType
         if subeventSplitType == 'навсех':
             bot.send_message(cid, 'Окей, делим на всех поровну. Кто внес деньги?', reply_markup=usr_keyb)
         elif subeventSplitType == 'вдолях':
@@ -184,7 +184,7 @@ def choose_subevent_type(m):
         usersData[cid]['step'] += 1
     else:
         keyb = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        keyb.row('Отмена')
+        keyb.row('/fix_event')
         bot.send_message(cid, 'Ошибка, неверный тип. Введи заново', reply_markup=keyb)
 
 
@@ -204,7 +204,7 @@ def who_is_sponsor(m):
         usersData[cid]['events'][cur_ev]['sponsor'] = text
         usersData[cid]['events'][cur_ev]['sponsor_idx'] = sponsor_idx
         bot.send_message(cid, f'Окей, сколько денег внес {text.capitalize()} для оплаты события {cur_ev_raw}?',
-                         reply_markup=types.ReplyKeyboardRemove)
+                         reply_markup=types.ReplyKeyboardRemove())
         usersData[cid]['step'] += 1
 
 
@@ -278,7 +278,7 @@ def split_parts(m):
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
             if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == 1:
                 usersData[cid]['step'] = 2
-                bot.send_message(cid, messages.split_success, reply_markup=types.ReplyKeyboardRemove)
+                bot.send_message(cid, messages.split_success, reply_markup=types.ReplyKeyboardRemove())
             else:
                 usersData[cid]['events'][cur_ev]['curIdx'] = 0
                 usersData[cid]['events'][cur_ev]['eventData'].clear()
