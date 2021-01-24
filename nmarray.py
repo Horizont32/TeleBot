@@ -98,17 +98,14 @@ def prepare_events(events):
 
 
 def poll_last_update(usersData):
-    users_to_delete = []
     while True:
         try:
             print('checking for users to delete', usersData)
-            for user, data in usersData.items():
-                if time() - data['last_update'] > 600:
-                    users_to_delete.append(user)
+            users_to_delete = [user for user, data in usersData.items() if time() - data['last_update'] > 600]
             for user in users_to_delete:
                 del usersData[user]
-                users_to_delete.remove(user)
                 print(f'deleted {user}')
+            users_to_delete = []
             sleep(600)
         except:
             print('Exception while polling')

@@ -12,7 +12,6 @@ usersData = {}
 knownUsers = set()
 
 
-# TODO: add buttons to every reply
 def get_user_step(uid):
     if uid in usersData:
         return usersData[uid]['step']
