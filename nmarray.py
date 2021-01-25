@@ -7,15 +7,18 @@ unknown_types = ['audio', 'document', 'photo', 'sticker', 'video', 'video_note',
                                     'supergroup_chat_created', 'channel_chat_created', 'migrate_to_chat_id',
                                     'migrate_from_chat_id', 'pinned_message']
 
+
 def eval_to_part(message):
     message = message.replace(' ', '')
     if '/' in message:
         parts = message.split('/')
+        assert len(parts) == 2
         part = int(parts[0])/int(parts[1])
         return part
     elif any(symbol in message for symbol in [',', '.']) or message == '1' or message == '0':
-        msg = message.replace(',', '.')
-        return float(msg)
+        val = float(message.replace(',', '.'))
+        assert 0 <= val <= 1
+        return val
     elif message.isdigit():
         raise ValueError
     else:
@@ -129,3 +132,4 @@ def write_user_to_file(uid):
                 f.write(str(uid) + '\n')
     except:
         print('ERROR Writing uID to file')
+

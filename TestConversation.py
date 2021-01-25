@@ -25,6 +25,28 @@ def get_user_step(uid):
         return 0
 
 
+def get_func_to_excecute(m):
+    cid = m.chat.id
+    funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_is_sponsor, sponsor_payment_sum,
+             tree_func, calculate]
+    step = get_user_step(cid)
+    try:
+        if step == 6:
+            cur_ev = usersData[cid]['current_event']
+            split_type = usersData[cid]['events'][cur_ev]['split_type']
+            if split_type == 'навсех':
+                return split_equal
+            elif split_type == 'вдолях':
+                return split_parts
+            elif split_type == 'насуммы':
+                return split_bill
+        else:
+            return funcs[step]
+    except:
+        bot.send_message(cid, 'Ошибка, введите заново')
+        return funcs[step]
+
+
 @bot.message_handler(commands=['send_message'], func=lambda msg: msg.chat.id == config.sender_id)
 def send_announcement(m):
     text = m.text
@@ -87,9 +109,9 @@ def add_event(m):
 def fix_event(m):
     cid = m.chat.id
     text = m.text
-    text_no_cmd = text.replace('/fix_event', '')
+    msg_args = telebot.util.extract_arguments(text)
     try:
-        chosenEvent = text_no_cmd.replace(' ', '').lower()
+        chosenEvent = msg_args.replace(' ', '').lower()
         if chosenEvent:
             cur_ev = chosenEvent
             usersData[cid]['current_event'] = cur_ev
@@ -117,6 +139,7 @@ def main_handler(m):
     step = get_user_step(uid)
     usersData[uid]['last_update'] = m.date
     print(usersData[uid]['tree'][step].__name__)
+    print('New method: ', get_func_to_excecute(m).__name__)
     usersData[uid]['tree'][step](m)
     print(usersData)
 
