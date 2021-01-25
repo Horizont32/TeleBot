@@ -55,3 +55,4 @@ if a == b != c:
     print('lll')
 a = getkek(step)
 print(a)
+print(round(0.2))

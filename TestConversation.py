@@ -20,7 +20,6 @@ def get_user_step(uid):
         print('users: ', knownUsers)
         nmarray.write_user_to_file(uid)
         usersData[uid] = {'step': 0}
-        usersData[uid]['tree'] = funcs
         print(f"New user {uid} detected, who hasn't used \"/add_event\" yet")
         return 0
 
@@ -82,9 +81,10 @@ def finish(m):
         if step == 2:
             # Calculate
             usersData[cid]['step'] = 7
-            step = usersData[cid]['step']
             usersData[cid]['last_update'] = m.date
-            usersData[cid]['tree'][step](m)
+            calc = get_func_to_excecute(m)
+            calc(m)
+            print('Calc finished')
         else:
             bot.send_message(cid, messages.finish_before_all_data_recieved)
     except:
@@ -133,14 +133,11 @@ def fix_event(m):
 @bot.message_handler(content_types=['text'], func=lambda msg: not msg.text.startswith('/fix_event'))
 def main_handler(m):
     uid = m.chat.id
-    print('MainHandler_Called')
     print('Text :', m.text)
     print('Name :', m.from_user.username)
-    step = get_user_step(uid)
+    print('Method: ', get_func_to_excecute(m).__name__)
+    get_func_to_excecute(m)(m)
     usersData[uid]['last_update'] = m.date
-    print(usersData[uid]['tree'][step].__name__)
-    print('New method: ', get_func_to_excecute(m).__name__)
-    usersData[uid]['tree'][step](m)
     print(usersData)
 
 
@@ -199,10 +196,8 @@ def choose_subevent_type(m):
         if subeventSplitType == 'навсех':
             bot.send_message(cid, 'Окей, делим на всех поровну. Кто внес деньги?', reply_markup=usr_keyb)
         elif subeventSplitType == 'вдолях':
-            funcs[6] = split_parts
             bot.send_message(cid, 'Окей, делим в долях. Кто внес деньги?', reply_markup=usr_keyb)
         elif subeventSplitType == 'насуммы':
-            funcs[6] = split_bill
             bot.send_message(cid, 'Окей, делим индивидуально на конкретные суммы. Кто внес деньги?',
                                    reply_markup=usr_keyb)
         usersData[cid]['step'] += 1
@@ -341,7 +336,7 @@ def split_bill(m):
             arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
             usersData[cid]['events'][cur_ev]['parts'].append(value)
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
-            if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == round(sponsor_payment):
+            if round(sum(usersData[cid]['events'][cur_ev]['parts']), 2) == round(sponsor_payment, 2):
                 usersData[cid]['step'] = 2
                 bot.send_message(cid, messages.split_success)
             else:
@@ -382,8 +377,6 @@ def calculate(m):
 
 
 if __name__ == '__main__':
-    funcs = [help_cmd, add_participants, add_subevent, choose_subevent_type, who_is_sponsor, sponsor_payment_sum,
-             tree_func, calculate]
     nmarray.fill_knownusers(knownUsers)
     thread1 = Thread(target=nmarray.poll_last_update, args=(usersData,))
     thread1.start()
