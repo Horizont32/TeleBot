@@ -323,7 +323,7 @@ def split_bill(m):
     sponsor_idx = usersData[cid]['events'][cur_ev]['sponsor_idx']
     sponsor_payment = usersData[cid]['events'][cur_ev]['sponsor_payment']
     try:
-        value = float(text)
+        value = float(text.replace(',', '.'))
         assert value >= 0
         if curIdx < len(partic) - 1:
             arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
