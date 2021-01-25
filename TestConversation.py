@@ -234,8 +234,8 @@ def sponsor_payment_sum(m):
     sp_type = usersData[cid]['events'][cur_ev]['split_type']
     partic = usersData[cid]['participants']
     try:
-        payment = float(text)
-        assert payment >= 0
+        payment = float(text.replace(',' , '.'))
+        assert payment > 0
         usersData[cid]['events'][cur_ev]['sponsor_payment'] = payment
         if sp_type == 'навсех':
             split_equal(m)
@@ -259,7 +259,7 @@ def sponsor_payment_sum(m):
                                   f'\nКакую долю от общей суммы должен {partic[0]}', reply_markup=parts_keyb)
             usersData[cid]['step'] += 1
     except:
-        bot.send_message(cid, 'Ошибка, вы ввели не число (или оно отрицательное)! Введите еще раз')
+        bot.send_message(cid, 'Ошибка, вы ввели не число (или оно не положительное)! Введите еще раз')
 
 
 def split_equal(m):
