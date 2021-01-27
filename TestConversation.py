@@ -17,7 +17,6 @@ def get_user_step(uid):
         return usersData[uid]['step']
     else:
         knownUsers.add(uid)
-        print('users: ', knownUsers)
         nmarray.write_user_to_file(uid)
         usersData[uid] = {'step': 0}
         print(f"New user {uid} detected, who hasn't used \"/add_event\" yet")
@@ -175,7 +174,7 @@ def add_participants(m):
         else:
             mes = ''
             for count, elem in enumerate(participants):
-                mes += '\n' + str(count + 1) + '. ' + str(elem)
+                mes += '\n' + str(count + 1) + '. ' + str(elem).capitalize()
             bot.send_message(cid, 'А вот и все наши участники! ' '\n' + mes)
             usersData[cid]['participants'] = participants
             bot.send_message(cid, messages.addPartic_success)
