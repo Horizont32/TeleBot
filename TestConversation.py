@@ -228,9 +228,7 @@ def choose_subevent_type(m):
                                    reply_markup=usr_keyb)
         usersData[cid]['step'] += 1
     else:
-        keyb = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        keyb.row('/fix_event')
-        bot.send_message(cid, 'Ошибка, неверный тип. Введи заново', reply_markup=keyb)
+        bot.send_message(cid, 'Ошибка, неверный тип. Введи заново')
 
 
 def who_is_sponsor(m):
