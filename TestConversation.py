@@ -49,7 +49,10 @@ def get_func_to_excecute(m):
 def send_announcement(m):
     text = m.text
     for user in knownUsers:
-        bot.send_message(user, text.replace('/send_message', ''))
+        try:
+            bot.send_message(user, text.replace('/send_message', ''))
+        except:
+            print(f'User {user} rejected getting messages from bot')
 
 
 @bot.message_handler(commands=['delete_me'])
