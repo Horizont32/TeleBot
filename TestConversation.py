@@ -63,12 +63,33 @@ def unsupported_message(m):
     bot.send_message(m.chat.id, 'Извини, с таким типом сообщения я не умею работать =) Мне нужен только текст')
 
 
-@bot.message_handler(content_types=['text'], func=lambda msg: msg.text.lower() == 'отмена' or msg.text.lower() == 'c')
+@bot.message_handler(commands=['delete_event'], func=lambda msg: msg.chat.id in usersData)
 def cancel_conversation(m):
     cid = m.chat.id
+    text = m.text
+    args = telebot.util.extract_arguments(text).replace(' ','').lower()
+    step = usersData[cid]['step']
     try:
-        del usersData[cid]
-        bot.send_message(cid, messages.data_cleared)
+        cur_ev = usersData[cid]['current_event']
+        if args == 'all':
+            del usersData[cid]
+            bot.send_message(cid, messages.data_cleared)
+        elif not args and step >= 2:
+            # Empty string, no arguments
+            del usersData[cid]['events'][cur_ev]
+            usersData[cid]['step'] = 2
+            bot.send_message(cid, f'Событие {cur_ev} удалено! Чтобы добавить новое событие, просто введите '
+                                  f'его название! Чтобы закончить расчет, введи /finish')
+        elif args and step == 2:
+            # String with event name and user is not working with the event
+            raw_event_name = usersData[cid]['events'][args]['raw_event_name']
+            del usersData[cid]['events'][args]
+            bot.send_message(cid, f'Событие {raw_event_name} удалено! Чтобы добавить новое событие, просто введите '
+                                  f'его название! Чтобы закончить расчет, введи /finish')
+        else:
+            raw_event_name = usersData[cid]['events'][cur_ev]['raw_event_name']
+            bot.send_message(cid, f'Вы не законили работать с событием {raw_event_name}! После того, как закончите, '
+                                  f'возвращайтесь и удалите нужное событие!')
     except:
         bot.send_message(cid, messages.nothing_to_delete)
 

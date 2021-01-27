@@ -56,3 +56,4 @@ if a == b != c:
 a = getkek(step)
 print(a)
 print(round(0.2))
+print(not '')
