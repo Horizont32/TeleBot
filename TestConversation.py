@@ -67,23 +67,23 @@ def unsupported_message(m):
 def cancel_conversation(m):
     cid = m.chat.id
     text = m.text
-    args = telebot.util.extract_arguments(text).replace(' ','').lower()
+    chosenEvent = telebot.util.extract_arguments(text).replace(' ', '').lower()
     step = usersData[cid]['step']
     try:
         cur_ev = usersData[cid]['current_event']
-        if args == 'all':
+        if chosenEvent == 'all':
             del usersData[cid]
             bot.send_message(cid, messages.data_cleared)
-        elif not args and step >= 2:
-            # Empty string, no arguments
+        elif not chosenEvent and step >= 2:
+            # Empty string, no arguments, delete current event
             del usersData[cid]['events'][cur_ev]
             usersData[cid]['step'] = 2
             bot.send_message(cid, f'Событие {cur_ev} удалено! Чтобы добавить новое событие, просто введите '
                                   f'его название! Чтобы закончить расчет, введи /finish')
-        elif args and step == 2:
-            # String with event name and user is not working with the event
-            raw_event_name = usersData[cid]['events'][args]['raw_event_name']
-            del usersData[cid]['events'][args]
+        elif chosenEvent and step == 2:
+            # String with event name and user is not working with the event, delete chosenEVENT event
+            raw_event_name = usersData[cid]['events'][chosenEvent]['raw_event_name']
+            del usersData[cid]['events'][chosenEvent]
             bot.send_message(cid, f'Событие {raw_event_name} удалено! Чтобы добавить новое событие, просто введите '
                                   f'его название! Чтобы закончить расчет, введи /finish')
         else:
@@ -131,11 +131,14 @@ def fix_event(m):
     cid = m.chat.id
     text = m.text
     msg_args = telebot.util.extract_arguments(text)
+    step = usersData[cid]['step']
     try:
         chosenEvent = msg_args.replace(' ', '').lower()
-        if chosenEvent:
+        if chosenEvent and step == 3:
             cur_ev = chosenEvent
             usersData[cid]['current_event'] = cur_ev
+        elif chosenEvent and not step == 3:
+            raise Exception
         cur_ev = usersData[cid]['current_event']
         cur_ev_raw = usersData[cid]['events'][cur_ev]['raw_event_name']
         usersData[cid]['events'][cur_ev].clear()
@@ -144,7 +147,7 @@ def fix_event(m):
         bot.send_message(cid, f'Я очистил все данные, кроме названия, по событию {cur_ev_raw}')
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
-        keyb.row('Отмена')
+        keyb.row('/delete_event')
         bot.send_message(cid, messages.fixEvent_success, reply_markup=keyb)
         print(f'Event {cur_ev} cleared')
     except:
