@@ -116,7 +116,7 @@ def finish(m):
 
 @bot.message_handler(commands=['help'])
 def help_cmd(m):
-    bot.send_message(m.chat.id, messages.help_msg)
+    bot.send_message(m.chat.id, messages.help_msg, parse_mode='html')
 
 
 @bot.message_handler(commands=['add_event'])
@@ -150,7 +150,7 @@ def fix_event(m):
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
         keyb.row('/delete_event')
-        bot.send_message(cid, messages.fixEvent_success, reply_markup=keyb)
+        bot.send_message(cid, messages.fixEvent_success, reply_markup=keyb, parse_mode='html')
         print(f'Event {cur_ev} cleared')
     except:
         bot.send_message(cid, messages.fixEvent_error)
@@ -203,7 +203,7 @@ def add_subevent(m):
         keyb = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         keyb.row('На всех', 'В долях', 'На суммы')
         keyb.row('/fix_event')
-        bot.send_message(cid, messages.addSubEvent_success, reply_markup=keyb)
+        bot.send_message(cid, messages.addSubEvent_success, reply_markup=keyb, parse_mode='html')
         usersData[cid]['step'] = 3
     except:
         bot.send_message(cid, 'Ошибка в имени, введи пожалуйста заново (возможно, такое имя уже есть)')
