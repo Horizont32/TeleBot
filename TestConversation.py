@@ -68,29 +68,32 @@ def cancel_conversation(m):
     text = m.text
     chosenEvent = telebot.util.extract_arguments(text).replace(' ', '').lower()
     step = usersData[cid]['step']
-    try:
-        cur_ev = usersData[cid]['current_event']
-        if chosenEvent == 'all':
-            del usersData[cid]
-            bot.send_message(cid, messages.data_cleared)
-        elif not chosenEvent and step >= 2:
-            # Empty string, no arguments, delete current event
-            del usersData[cid]['events'][cur_ev]
-            usersData[cid]['step'] = 2
-            bot.send_message(cid, f'Событие {cur_ev} удалено! Чтобы добавить новое событие, просто введите '
-                                  f'его название! Чтобы закончить расчет, введи /finish')
-        elif chosenEvent and step == 2:
-            # String with event name and user is not working with the event, delete chosenEVENT event
-            raw_event_name = usersData[cid]['events'][chosenEvent]['raw_event_name']
-            del usersData[cid]['events'][chosenEvent]
-            bot.send_message(cid, f'Событие {raw_event_name} удалено! Чтобы добавить новое событие, просто введите '
-                                  f'его название! Чтобы закончить расчет, введи /finish')
-        else:
-            raw_event_name = usersData[cid]['events'][cur_ev]['raw_event_name']
-            bot.send_message(cid, f'Вы не законили работать с событием {raw_event_name}! После того, как закончите, '
-                                  f'возвращайтесь и удалите нужное событие!')
-    except:
-        bot.send_message(cid, messages.nothing_to_delete)
+    if chosenEvent == 'all':
+        del usersData[cid]
+        bot.send_message(cid, messages.data_cleared)
+    else:
+        try:
+            cur_ev = usersData[cid]['current_event']
+            if not chosenEvent and step >= 2:
+                # Empty string, no arguments, delete current event
+                del usersData[cid]['events'][cur_ev]
+                usersData[cid]['step'] = 2
+                bot.send_message(cid, f'Событие {cur_ev} удалено! Чтобы добавить новое событие, просто введите '
+                                      f'его название! Чтобы закончить расчет, введи /finish',
+                                 reply_markup=types.ReplyKeyboardRemove())
+            elif chosenEvent and step == 2:
+                # String with event name and user is not working with the event, delete chosenEVENT event
+                raw_event_name = usersData[cid]['events'][chosenEvent]['raw_event_name']
+                del usersData[cid]['events'][chosenEvent]
+                bot.send_message(cid, f'Событие {raw_event_name} удалено! Чтобы добавить новое событие, просто введите '
+                                      f'его название! Чтобы закончить расчет, введи /finish',
+                                 reply_markup=types.ReplyKeyboardRemove())
+            else:
+                raw_event_name = usersData[cid]['events'][cur_ev]['raw_event_name']
+                bot.send_message(cid, f'Вы не законили работать с событием {raw_event_name}! После того, как закончите, '
+                                      f'возвращайтесь и удалите нужное событие!')
+        except:
+            bot.send_message(cid, messages.nothing_to_delete)
 
 
 @bot.message_handler(commands=['finish'])
