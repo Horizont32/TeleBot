@@ -139,10 +139,10 @@ def fix_event(m):
     step = usersData[cid]['step']
     try:
         chosenEvent = msg_args.replace(' ', '').lower()
-        if chosenEvent and step == 3:
+        if chosenEvent and step == 2:
             cur_ev = chosenEvent
             usersData[cid]['current_event'] = cur_ev
-        elif chosenEvent and not step == 3:
+        elif chosenEvent and not step == 2:
             raise Exception
         cur_ev = usersData[cid]['current_event']
         cur_ev_raw = usersData[cid]['events'][cur_ev]['raw_event_name']
