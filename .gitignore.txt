@@ -2,15 +2,15 @@
 config.py
 
 #Remove virtual envirinments
-/venv/
-/venv2/
+venv/
+venv2/
 
 #. folders
-/.idea/
-/.handel-saves/
+.idea/
+.handler-saves/
 
 #caching
-/__pycache__/
+__pycache__/
 
 #datafile
 data.txt
