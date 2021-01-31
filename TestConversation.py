@@ -2,22 +2,18 @@ import config
 import telebot
 from telebot import types
 import nmarray
-from threading import Thread
 import messages
 
 bot = telebot.TeleBot(config.token, threaded=True)
 bot.worker_pool = telebot.util.ThreadPool(num_threads=3)
 
 usersData = {}
-knownUsers = set()
-
 
 def get_user_step(uid):
     if uid in usersData:
         return usersData[uid]['step']
     else:
-        knownUsers.add(uid)
-        nmarray.write_user_to_file(uid)
+        nmarray.write_user_to_db(uid)
         usersData[uid] = {'step': 0}
         print(f"New user {uid} detected, who hasn't used \"/add_event\" yet")
         return 0
@@ -48,16 +44,12 @@ def get_func_to_excecute(m):
 @bot.message_handler(commands=['send_message'], func=lambda msg: msg.chat.id == config.sender_id)
 def send_announcement(m):
     text = m.text
+    knownUsers = nmarray.read_users_from_db()
     for user in knownUsers:
         try:
             bot.send_message(user, text.replace('/send_message', ''))
         except:
             print(f'User {user} rejected getting messages from bot')
-
-
-@bot.message_handler(commands=['delete_me'])
-def delete_user(m):
-    knownUsers.remove(m.chat.id)
 
 
 @bot.message_handler(content_types=nmarray.unknown_types)
@@ -404,9 +396,7 @@ def calculate(m):
 
 
 if __name__ == '__main__':
-    nmarray.fill_knownusers(knownUsers)
-    thread1 = Thread(target=nmarray.poll_last_update, args=(usersData,))
-    thread1.start()
+    nmarray.poll_last_update(usersData)
     bot.polling(none_stop=True, interval=2)
 
 

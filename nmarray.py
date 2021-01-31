@@ -1,5 +1,7 @@
 import numpy as np
-from time import time, sleep
+from time import time
+import threading
+import sqlite3
 
 unknown_types = ['audio', 'document', 'photo', 'sticker', 'video', 'video_note',
                                     'voice', 'location', 'contact', 'new_chat_members', 'left_chat_member',
@@ -101,35 +103,36 @@ def prepare_events(events):
 
 
 def poll_last_update(usersData):
-    while True:
-        try:
-            print('checking for users to delete', usersData)
-            users_to_delete = [user for user, data in usersData.items() if time() - data['last_update'] > 600]
-            for user in users_to_delete:
-                del usersData[user]
-                print(f'deleted {user}')
-            users_to_delete = []
-            sleep(600)
-        except:
-            print('Exception while polling')
-
-
-def fill_knownusers(knownUsers):
     try:
-        with open('data.txt', 'r') as f:
-            for line in f:
-                knownUsers.add(int(line.rstrip('\n')))
+        print('checking for users to delete', usersData)
+        users_to_delete = [user for user, data in usersData.items() if time() - data['last_update'] > 600]
+        for user in users_to_delete:
+            del usersData[user]
+            print(f'deleted {user}')
+        threading.Timer(1200, poll_last_update, args=(usersData,)).start()
+
     except:
-        print('ERROR FILLING knownUsers')
+        print('Exception while polling')
 
 
-def write_user_to_file(uid):
+def write_user_to_db(uid):
     try:
-        with open('data.txt', 'r+') as f:
-            users = [int(line.rstrip('\n')) for line in f]
-            if uid not in users:
-                print(f'User {uid} added to file')
-                f.write(str(uid) + '\n')
+        with sqlite3.connect('bot.db') as conn:
+            c = conn.cursor()
+            c.execute('INSERT OR IGNORE INTO users VALUES (?,?)', (uid, round(time())))
+            conn.commit()
     except:
-        print('ERROR Writing uID to file')
+        print('ERROR WHILE ADDIND USER TO DB')
 
+
+def read_users_from_db():
+    try:
+        with sqlite3.connect('bot.db') as conn:
+            c = conn.cursor()
+            c.row_factory = lambda cursor, row: row[0]
+            c.execute('SELECT id FROM users')
+            result = set(c.fetchall())
+            return result
+    except:
+        print('ERROR READING FROM DB')
+        return None

@@ -14,3 +14,8 @@ config.py
 
 #datafile
 data.txt
+datameSrul.txt
+*.db
+
+#test images
+*.png
