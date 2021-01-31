@@ -14,7 +14,7 @@ __pycache__/
 
 #datafile
 data.txt
-datameSrul.txt
+data_meSrul.txt
 *.db
 
 #test images
