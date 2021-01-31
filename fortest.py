@@ -54,16 +54,16 @@ def write_user_to_db(uid):
         print('ERROR WHILE ADDIND USER TO DB')
 
 
-def read_users_from_db():
+def count_users():
     try:
         with sqlite3.connect('bot.db') as conn:
             c = conn.cursor()
             c.row_factory = lambda cursor, row: row[0]
-            c.execute('SELECT id FROM users')
-            result = set(c.fetchall())
+            c.execute('SELECT COUNT(id) FROM users')
+            result = c.fetchone()
             return result
     except:
         print('ERROR READING FROM DB')
         return None
 
-read_users_from_db()
+print(count_users())

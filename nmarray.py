@@ -136,3 +136,16 @@ def read_users_from_db():
     except:
         print('ERROR READING FROM DB')
         return None
+
+
+def count_users():
+    try:
+        with sqlite3.connect('bot.db') as conn:
+            c = conn.cursor()
+            c.row_factory = lambda cursor, row: row[0]
+            c.execute('SELECT COUNT(id) FROM users')
+            result = c.fetchone()
+            return result
+    except:
+        print('ERROR READING FROM DB')
+        return None

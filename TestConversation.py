@@ -57,6 +57,16 @@ def unsupported_message(m):
     bot.send_message(m.chat.id, 'Извини, с таким типом сообщения я не умею работать =) Мне нужен только текст')
 
 
+@bot.message_handler(commands=['cnt_users'], func=lambda msg: msg.chat.id == config.sender_id)
+def how_many(m):
+    cid = m.chat.id
+    try:
+        result = nmarray.count_users()
+        bot.send_message(cid, f'Active users: {result}')
+    except:
+        bot.send_message(cid, 'Error fetching db')
+
+
 @bot.message_handler(commands=['delete_event'], func=lambda msg: msg.chat.id in usersData)
 def cancel_conversation(m):
     cid = m.chat.id
