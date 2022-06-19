@@ -1,0 +1,13 @@
+#
+venv*
+
+#. folders
+.idea
+.handler-saves
+.git
+
+#caching
+__pycache__
+
+#test images
+*.png

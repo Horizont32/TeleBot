@@ -117,7 +117,7 @@ def poll_last_update(usersData):
 
 def write_user_to_db(uid):
     try:
-        with sqlite3.connect('bot.db') as conn:
+        with sqlite3.connect('/db/bot.db') as conn:
             c = conn.cursor()
             c.execute('INSERT OR IGNORE INTO users VALUES (?,?)', (uid, round(time())))
             conn.commit()
@@ -127,7 +127,7 @@ def write_user_to_db(uid):
 
 def read_users_from_db():
     try:
-        with sqlite3.connect('bot.db') as conn:
+        with sqlite3.connect('/db/bot.db') as conn:
             c = conn.cursor()
             c.row_factory = lambda cursor, row: row[0]
             c.execute('SELECT id FROM users')
@@ -140,7 +140,7 @@ def read_users_from_db():
 
 def count_users():
     try:
-        with sqlite3.connect('bot.db') as conn:
+        with sqlite3.connect('/db/bot.db') as conn:
             c = conn.cursor()
             c.row_factory = lambda cursor, row: row[0]
             c.execute('SELECT COUNT(id) FROM users')

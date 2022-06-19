@@ -3,67 +3,48 @@ import threading as th
 from time import time, sleep
 import re
 import pathlib
+import sqlite3, telebot, config
 
-# with open('data_meSrul.txt', 'r') as f:
-#     lines = [line.rstrip('\n') for line in f]
+a = [1,2,3,4]
+abytes = bytearray(a)
+print(abytes)
+print(list(abytes))
+
+
+
+def adapt_array(arr):
+    """
+        http://stackoverflow.com/a/31312102/190597 (SoulNibbler)
+        """
+    return bytearray(arr)
+
+def convert_array(text):
+    return list(text)
+
+# with sqlite3.connect('data.db', detect_types=sqlite3.PARSE_DECLTYPES) as conn:
+#     c = conn.cursor()
+#     # Converts np.array to TEXT when inserting
+#     # sqlite3.register_adapter(list, adapt_array)
 #
-# times = [time() - 86400*(len(lines) - cnt) for cnt in range(len(lines))]
-# print(times)
-# with open('data_meSrul.txt', 'w') as f:
-#     for (line, time) in zip(lines, times):
-#         f.write(str(line) + '\t' + str(time) + '\n')
-def dict_factory(cursor, row):
-    d = {}
-    for idx, col in enumerate(cursor.description):
-        d[col[0]] = row[idx]
-    return d
+#     # Converts TEXT to np.array when selecting
+#     c.row_factory = lambda cursor, row: row[0]
+#     sqlite3.register_converter("BLOB", convert_array)
+#     # c.execute('INSERT INTO testarray VALUES (?)', (a, ))
+#     c.execute('SELECT arr FROM testarray')
+#     print('fetched: ', c.fetchone())
 
 
-import sqlite3
-# with sqlite3.connect('bot.db') as conn:
-    # conn.row_factory = lambda cursor, row: {'Id': row[0], 'joined': row[1]}
-    # c = conn.cursor()
-    # c.row_factory = dict_factory
+bot = telebot.TeleBot(config.token, threaded=True)
+bot.worker_pool = telebot.util.ThreadPool(num_threads=3)
 
-    # Create table
-    # c.execute('''CREATE TABLE users
-    #             (id int, joined int)''')
+def send_announcement(m):
 
-    # c.execute('DELETE FROM users')
-    # # Insert a row of data
-    # data = [(224702274, '1611700212'),
-    #         (187060079, str(time()))]
-    # c.executemany("INSERT INTO users VALUES (?,?)", data)
-    # c.execute('SELECT COUNT(*) FROM users')
-    # print(c.fetchone()[0])
-    # c.execute('SELECT * FROM users')
-    # print(c.description)
-
-    # print(c.fetchone())
-    # print({row['id']:row['joined'] for row in c.fetchall()})
-    # Save (commit) the changes
-    # conn.commit()
-
-def write_user_to_db(uid):
     try:
-        with sqlite3.connect('bot.db') as conn:
-            c = conn.cursor()
-            c.execute('INSERT OR IGNORE INTO users VALUES (?,?)', (uid, round(time(), uid)))
-            conn.commit()
+        bot.send_message(config.sender_id, text='rf')
     except:
-        print('ERROR WHILE ADDIND USER TO DB')
+        print(f'User {config.sender_id} rejected getting messages from bot')
 
-
-def count_users():
-    try:
-        with sqlite3.connect('bot.db') as conn:
-            c = conn.cursor()
-            c.row_factory = lambda cursor, row: row[0]
-            c.execute('SELECT COUNT(id) FROM users')
-            result = c.fetchone()
-            return result
-    except:
-        print('ERROR READING FROM DB')
-        return None
-
-print(count_users())
+if __name__ == '__main__':
+    while True:
+        send_announcement(2)
+        sleep(10)

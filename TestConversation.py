@@ -355,6 +355,8 @@ def split_bill(m):
         value = float(text.replace(',', '.'))
         assert value >= 0
         if curIdx < len(partic) - 1:
+            if curIdx == 0:  # Clear defauls if function has been called after fix_event
+                usersData[cid]['events'][cur_ev]['eventData'].clear()
             arr = [value if count == sponsor_idx else 0 for count, _ in enumerate(partic)]
             usersData[cid]['events'][cur_ev]['parts'].append(value)
             usersData[cid]['events'][cur_ev]['eventData'].append(arr)
@@ -370,8 +372,8 @@ def split_bill(m):
                 bot.send_message(cid, messages.split_success)
             else:
                 usersData[cid]['events'][cur_ev]['curIdx'] = 0
-                usersData[cid]['events'][cur_ev]['eventData'].clear()
                 usersData[cid]['events'][cur_ev]['parts'].clear()
+                usersData[cid]['events'][cur_ev]['eventData'].clear()
                 bot.send_message(cid, f'Сумма, внесенная {partic[sponsor_idx]}, не совпарадет с введенной '
                                       f'вами суммой. Попробуем заново с момента распределения затрат.'
                                       f'\nКакую сумму должен {partic[0]}')
